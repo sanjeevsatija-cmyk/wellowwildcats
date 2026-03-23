@@ -1,62 +1,67 @@
 const SPONSORS = [
-  { name:"Manny's Italian",       type:"Restaurant",          icon:"🍝", href:"https://www.mannysitalian.com.au/",      tier:"platinum" },
-  { name:"Punjab Curry Club",     type:"Restaurant",          icon:"🍛", href:"https://punjabcurryclub.com.au/",        tier:"platinum" },
-  { name:"Mortgage Finance Guru", type:"Finance & Mortgages", icon:"🏠", href:"https://mortgagefinanceguru.com.au/",    tier:"platinum" },
-  { name:"Cricket Gurus",         type:"Cricket Equipment",   icon:"🏏", href:"https://www.cricketgurus.com.au/",       tier:"gold" },
-  { name:"LG Wealth",             type:"Financial Services",  icon:"💼", href:"https://lgwealth.com.au/",               tier:"gold" },
+  { name:"Manny's Italian",       type:"Restaurant",          icon:"🍝", href:"https://www.mannysitalian.com.au/",    tier:"platinum" },
+  { name:"Punjab Curry Club",     type:"Restaurant",          icon:"🍛", href:"https://punjabcurryclub.com.au/",      tier:"platinum" },
+  { name:"Mortgage Finance Guru", type:"Finance & Mortgages", icon:"🏠", href:"https://mortgagefinanceguru.com.au/",  tier:"platinum" },
+  { name:"Cricket Gurus",         type:"Cricket Equipment",   icon:"🏏", href:"https://www.cricketgurus.com.au/",     tier:"gold" },
+  { name:"LG Wealth",             type:"Financial Services",  icon:"💼", href:"https://lgwealth.com.au/",             tier:"gold" },
 ];
 
 export default function SponsorsGrid() {
   return (
-    <section className="py-[70px] px-12 bg-white">
+    <section className="py-12 md:py-16 px-4 md:px-12 bg-white">
       <div className="max-w-[1240px] mx-auto">
-        <div className="flex justify-between items-end mb-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-3">
           <div>
             <div className="section-label">Our Partners</div>
-            <h2 className="font-serif text-[clamp(28px,3.5vw,44px)] font-black text-green-dark leading-[1.1]">
+            <h2 className="font-serif text-[clamp(26px,3.5vw,44px)] font-black text-green-dark leading-[1.1]">
               Proudly Supported By
             </h2>
           </div>
           <a href="/sponsors#become"
-            className="font-condensed text-xs font-bold tracking-[0.1em] uppercase text-green-dark no-underline border border-[1.5px] border-green-dark px-4 py-2.5 rounded transition-all duration-200 hover:bg-green-pale">
+            className="font-condensed text-xs font-bold tracking-[0.1em] uppercase text-green-dark no-underline border border-green-dark px-4 py-2 rounded hover:bg-green-pale transition-all whitespace-nowrap">
             Become a Sponsor
           </a>
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns:"repeat(6,1fr)" }}>
-          {SPONSORS.map((s) => (
-            <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-              className={`relative flex flex-col items-center gap-3 p-6 rounded-[6px] text-center no-underline transition-all duration-200 hover:-translate-y-0.5 cursor-pointer col-span-2 ${
-                s.tier === "platinum"
-                  ? "bg-green-deep border border-green-dark hover:border-gold"
-                  : "bg-cream border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.15)] hover:bg-white"
-              }`}>
-              <div className={`absolute top-0 right-0 font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-2 py-0.5 rounded-bl ${
-                s.tier === "platinum" ? "bg-[#E5E4E2] text-charcoal" : "bg-yellow-400 text-charcoal"
-              }`}>
-                {s.tier === "platinum" ? "Platinum" : "Gold"}
-              </div>
-              <div className={`w-[70px] h-[50px] rounded flex items-center justify-center text-[22px] ${
-                s.tier === "platinum" ? "bg-white/12 text-gold" : "bg-green-deep/[0.08] text-green-dark"
-              }`}>
-                {s.icon}
-              </div>
-              <div className={`font-condensed text-[13px] font-bold tracking-[0.04em] leading-snug ${s.tier === "platinum" ? "text-white" : "text-charcoal"}`}>
-                {s.name}
-              </div>
-              <div className={`font-condensed text-[10px] font-medium tracking-[0.06em] uppercase ${s.tier === "platinum" ? "text-white/45" : "text-wello-grey"}`}>
-                {s.type}
-              </div>
-            </a>
-          ))}
+        {/* Platinum row */}
+        <div className="mb-4">
+          <div className="font-condensed text-[9px] font-bold tracking-[0.14em] uppercase text-wello-grey mb-3">Platinum Sponsors</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {SPONSORS.filter(s => s.tier === "platinum").map(s => (
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-green-deep border border-gold/20 hover:border-gold rounded-lg px-5 py-4 no-underline transition-all hover:-translate-y-0.5 group">
+                <div className="text-2xl flex-shrink-0">{s.icon}</div>
+                <div>
+                  <div className="font-condensed text-[12px] font-bold text-white leading-tight">{s.name}</div>
+                  <div className="font-condensed text-[9px] text-white/40 uppercase tracking-[0.08em]">{s.type}</div>
+                </div>
+                <span className="ml-auto font-condensed text-[9px] font-bold tracking-[0.08em] uppercase bg-[#E5E4E2] text-charcoal px-1.5 py-0.5 rounded flex-shrink-0">Platinum</span>
+              </a>
+            ))}
+          </div>
+        </div>
 
-          <a href="/sponsors#become"
-            className="col-span-1 flex flex-col items-center justify-center gap-2.5 p-6 rounded-[6px] border border-dashed border-grey-light no-underline text-center transition-all duration-200 hover:border-gold hover:bg-gold-pale cursor-pointer group">
-            <div className="text-[28px] text-wello-grey group-hover:text-green-dark transition-colors">＋</div>
-            <div className="font-condensed text-[11px] font-bold tracking-[0.06em] uppercase text-wello-grey group-hover:text-green-dark transition-colors">
-              Your Business Here
-            </div>
-          </a>
+        {/* Gold row */}
+        <div className="mb-6">
+          <div className="font-condensed text-[9px] font-bold tracking-[0.14em] uppercase text-wello-grey mb-3">Gold Sponsors</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {SPONSORS.filter(s => s.tier === "gold").map(s => (
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-cream border border-grey-light hover:border-gold rounded-lg px-5 py-4 no-underline transition-all hover:-translate-y-0.5 group">
+                <div className="text-2xl flex-shrink-0">{s.icon}</div>
+                <div>
+                  <div className="font-condensed text-[12px] font-bold text-charcoal leading-tight">{s.name}</div>
+                  <div className="font-condensed text-[9px] text-wello-grey uppercase tracking-[0.08em]">{s.type}</div>
+                </div>
+                <span className="ml-auto font-condensed text-[9px] font-bold tracking-[0.08em] uppercase bg-yellow-400 text-charcoal px-1.5 py-0.5 rounded flex-shrink-0">Gold</span>
+              </a>
+            ))}
+            <a href="/sponsors#become"
+              className="flex items-center justify-center gap-2 border border-dashed border-grey-light hover:border-gold rounded-lg px-5 py-4 no-underline transition-all group">
+              <span className="text-xl text-wello-grey group-hover:text-green-dark">＋</span>
+              <span className="font-condensed text-[11px] font-bold tracking-[0.06em] uppercase text-wello-grey group-hover:text-green-dark">Your Business Here</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

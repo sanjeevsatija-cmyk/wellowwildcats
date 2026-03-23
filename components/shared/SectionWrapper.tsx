@@ -1,12 +1,11 @@
 interface SectionWrapperProps {
   children: React.ReactNode;
   className?: string;
-  id?: string;
 }
 
-export default function SectionWrapper({ children, className = "", id }: SectionWrapperProps) {
+export default function SectionWrapper({ children, className = "" }: SectionWrapperProps) {
   return (
-    <section id={id} className={`py-20 px-12 ${className}`}>
+    <section className={`py-12 md:py-16 px-4 md:px-12 ${className}`}>
       <div className="max-w-[1240px] mx-auto">
         {children}
       </div>

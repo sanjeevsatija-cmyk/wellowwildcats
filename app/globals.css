@@ -71,3 +71,15 @@
 }
 @keyframes slowRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ── Mobile helpers ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .btn-primary, .btn-secondary {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.75rem;
+  }
+  .section-label {
+    font-size: 0.65rem;
+  }
+}

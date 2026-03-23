@@ -45,10 +45,10 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal pt-14 pb-7 px-12">
+    <footer className="bg-charcoal pt-10 md:pt-14 pb-7 px-4 md:px-12">
       <div className="max-w-[1240px] mx-auto">
         {/* Top grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-12 pb-12 border-b border-white/[0.08]">
+        <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 mb-12 pb-12 border-b border-white/[0.08]">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">

@@ -23,7 +23,7 @@ export default function ContactPage() {
         />
 
         <SectionWrapper className="bg-cream">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 md:gap-14">
 
             {/* Contact form */}
             <div>
