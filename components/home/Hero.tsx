@@ -29,12 +29,6 @@ export default function Hero() {
 
         {/* LEFT */}
         <div>
-          <div className="inline-flex items-center gap-2.5 font-condensed text-xs font-bold tracking-[0.2em] uppercase text-gold mb-6">
-            <span className="block w-7 h-px bg-gold/60" />
-            Est. 1895
-            <span className="block w-7 h-px bg-gold/60" />
-          </div>
-
           {/* SVG Logo + Heading */}
           <div className="flex items-center gap-6 mb-6">
             <div className="flex flex-col items-center flex-shrink-0">

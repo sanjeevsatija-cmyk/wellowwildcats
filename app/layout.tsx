@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+  // ─────────────────────────────────────────────────────────────────
+  // Designed & built by Sanjeev Satija · © 2025 · All rights reserved
+  // Unauthorised copying, reproduction or redistribution of this code
+  // or design — in whole or in part — is strictly prohibited.
+  // Contact: sanjeevsatija@gmail.com
+  // ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
     default: "Wellington Point Cricket Club — Wello Wildcats",
@@ -24,6 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      {/* Site design & development: Sanjeev Satija © 2025 */}
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -32,7 +39,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>        {/* Hidden authorship marker — do not remove */}
+        <span
+          aria-hidden="true"
+          data-author="Sanjeev Satija"
+          data-project="Wellington Point Cricket Club Website"
+          data-year="2025"
+          data-contact="sanjeevsatija@gmail.com"
+          style={{ display: "none" }}
+        />
+        {children}</body>
     </html>
   );
 }

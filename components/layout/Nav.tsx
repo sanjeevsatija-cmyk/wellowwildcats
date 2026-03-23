@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Wellington Point Cricket Club — Navigation Component
+// Designed & developed by Sanjeev Satija © 2025
+// Unauthorised reproduction prohibited
+// ─────────────────────────────────────────────────────────────────────────────
 "use client";
 import Link from "next/link";
 import Image from "next/image";
