@@ -91,8 +91,8 @@ export default function ContactPage() {
               <div className="bg-white rounded-lg p-7 border border-grey-light">
                 <div className="font-condensed text-[10px] font-bold tracking-[0.15em] uppercase text-gold mb-4">Club Contacts</div>
                 {[
-                  { role: "President",  name: "Gurinder Rangi",  phone: "0434 512 044", email: "president@wellowildcats.com.au" },
-                  { role: "Secretary",  name: "Jamie Stainburn", phone: "0431 277 265", email: "secretary@wellowildcats.com.au" },
+                  { role: "President",  name: "Gurinder Singh Rangi (Guru)",  phone: "0434 512 044", email: "president@wellowildcats.com.au" },
+                  { role: "Secretary",  name: "Jamie Stainburn", phone: "0431 277 265", email: "president@wellowildcats.com.au" },
                   { role: "VP Seniors", name: "Brendin Bloye",   phone: "0404 381 304", email: "" },
                 ].map((c) => (
                   <div key={c.name} className="mb-5 last:mb-0 pb-5 last:pb-0 border-b border-grey-light last:border-0">

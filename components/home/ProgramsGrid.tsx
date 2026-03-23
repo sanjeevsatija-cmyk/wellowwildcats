@@ -12,9 +12,15 @@ const PROGRAMS = [
     desc:"The next step after Cricket Blast. Modified 20-over match play where every player bats the same number of balls and bowls the same number of overs. Scores are not recorded on PlayHQ — this is structured development cricket.",
   },
   {
-    num:"03", icon:"🏏", tag:"Divisional Cricket", name:"BEARS Junior Cricket",
-    href:"/programs/bears-cricket", featured:true,
+    num:"03", icon:"🏏", tag:"Divisional Cricket", name:"Junior Cricket",
+    href:"/programs/junior-cricket", featured:false,
     desc:"Competitive divisional cricket through the Bayside East & Redlands Cricket Association (BEARS). One-day and two-day formats with 50 overs per day — batting and bowling shared equally across the team.",
+  },
+  {
+    num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket",
+    href:"/programs/warehouse-cricket", featured:false,
+    color:"bg-green-dark",
+    desc:"Winter 2026 indoor cricket — junior and senior Saturday competitions, plus fortnightly Sunday senior-only 50 Over & T20 competitions. Fixtures from 2 May to mid-August.",
   },
   {
     num:"04", icon:"🏆", tag:"Adults & Masters (35+)", name:"Senior Cricket",

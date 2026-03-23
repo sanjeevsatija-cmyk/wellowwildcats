@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const COMMITTEE = [
-  { name: "Gurinder Rangi",   role: "President",          phone: "0434 512 044", email: "president@wellowildcats.com.au" },
+  { name: "Gurinder Singh Rangi (Guru)",   role: "President",          phone: "0434 512 044", email: "president@wellowildcats.com.au" },
   { name: "Jamie Stainburn", role: "Secretary",          phone: "0431 277 265", email: "president@wellowildcats.com.au" },
   { name: "Mike Mason",      role: "Treasurer",          phone: "",             email: "" },
   { name: "Brendin Bloye",   role: "VP — Seniors",       phone: "0404 381 304", email: "" },

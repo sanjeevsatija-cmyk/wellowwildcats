@@ -33,7 +33,7 @@ const TEAM_GROUPS = [
     ],
   },
   {
-    category: "⭐ BEARS Junior Cricket",
+    category: "⭐ Junior Cricket",
     comp: "Bayside East & Redlands Cricket Association (BEARS)",
     compNote: "Divisional junior cricket · One-day & two-day formats",
     teams: [

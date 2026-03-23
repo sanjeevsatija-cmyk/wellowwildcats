@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: "Teams",     href: "/teams" },
   { label: "Programs",  href: "/programs" },
   { label: "Results",   href: "/results" },
-  { label: "News",      href: "/news" },
+  { label: "News & Resources", href: "/news" },
   { label: "Gallery",   href: "/gallery" },
   { label: "Sponsors",  href: "/sponsors" },
   { label: "About",     href: "/about" },
@@ -34,11 +34,11 @@ export default function Nav() {
           className="w-[52px] h-[52px] object-contain"
         />
         <div className="leading-tight">
-          <strong className="block font-condensed font-extrabold text-[16px] text-white tracking-[0.05em] uppercase">
-            Wello Wildcats
-          </strong>
-          <span className="text-[10px] text-white/50 tracking-[0.06em]">
+          <strong className="block font-condensed font-extrabold text-[13px] text-white tracking-[0.05em] uppercase">
             Wellington Point Cricket Club
+          </strong>
+          <span className="text-[10px] text-white/50 tracking-[0.06em] uppercase tracking-[0.08em]">
+            Wello Wildcats
           </span>
         </div>
       </Link>

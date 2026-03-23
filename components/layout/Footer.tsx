@@ -6,15 +6,16 @@ const REG_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-c
 const PROGRAM_LINKS = [
   { label: "Cricket Blast",  href: "/programs/cricket-blast" },
   { label: "RCI Trebles",    href: "/programs/rci-trebles" },
-  { label: "BEARS Cricket",  href: "/programs/bears-cricket" },
+  { label: "Junior Cricket", href: "/programs/junior-cricket" },
   { label: "Senior Cricket", href: "/programs/senior-cricket" },
+  { label: "Warehouse Cricket", href: "/programs/warehouse-cricket" },
 ];
 const CLUB_LINKS = [
   { label: "About Us",       href: "/about" },
-  { label: "News & Reports", href: "/news" },
+  { label: "News & Resources", href: "/news" },
   { label: "Photo Gallery",  href: "/gallery" },
   { label: "Sponsors",       href: "/sponsors" },
-  { label: "Resources",      href: "/resources" },
+  { label: "Resources", href: "/news#resources" },
 ];
 const CONTACT_LINKS = [
   { label: "Contact the Club", href: "/contact" },

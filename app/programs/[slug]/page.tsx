@@ -9,9 +9,9 @@ export const revalidate = 3600;
 
 const REG_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
 
-const PROGRAMS: Record<string, { num:string; icon:string; tag:string; name:string; detail:string; features:string[] }> = {
+const PROGRAMS: Record<string, { num:string; icon:string; tag:string; name:string; detail:string; features:string[]; season:string }> = {
   "cricket-blast": {
-    num:"01", icon:"🌟", tag:"Ages 5–10", name:"Cricket Blast",
+    num:"01", icon:"🌟", tag:"Ages 5–10", name:"Cricket Blast", season:"Summer",
     detail:`Cricket Blast is Wello Wildcats' introductory cricket program, designed specifically for children aged 5 to 10 who have never played cricket before. This is a training-only format — there are no competitive games — making it the ideal first experience of the sport in a fun, low-pressure environment.
 
 Using age-appropriate equipment and activity-based coaching methods, participants develop the core fundamentals of cricket: batting technique, basic bowling action, catching, throwing and fielding positioning. Sessions are run by qualified, accredited coaches who understand how to engage young children and make learning enjoyable.
@@ -20,33 +20,56 @@ Cricket Blast builds confidence, coordination and a love of the game. It follows
     features:["Skills-based training — no competitive matches","Ages 5 to 10 — complete beginners welcome","Batting, bowling and fielding fundamentals","Fun, game-based activities and drills","Mixed boys and girls sessions","Qualified and accredited coaches","Small group sizes for personalised attention","Woolworths Cricket Blast endorsed program"],
   },
   "rci-trebles": {
-    num:"02", icon:"⚡", tag:"Ages 7–12", name:"RCI Trebles",
+    num:"02", icon:"⚡", tag:"Ages 7–12", name:"RCI Trebles", season:"Summer",
     detail:`RCI Trebles is the natural next step for players who have progressed through Cricket Blast and are ready to experience structured match play for the first time. Organised through Redlands Cricket Inc (RCI), this competition is designed for players aged 7 to 12 and provides a supported transition from training into a game environment.
 
 Matches are played in a 20-over format with a key emphasis on equal participation — every player bats the same number of balls and bowls the same number of overs. This ensures maximum involvement for all players regardless of ability, reinforcing the development-first philosophy of junior cricket.
 
-Unlike higher-level competitions, RCI Trebles results are not recorded in PlayHQ. This deliberate approach keeps the focus on player development, skill building and enjoyment rather than competition outcomes. It is considered a structured development phase rather than formal competitive cricket.`,
+Unlike higher-level competitions, RCI Trebles results are not recorded in PlayHQ. This deliberate approach keeps the focus on player development, skill building and enjoyment rather than competition outcomes.`,
     features:["20-over modified match format","Every player bats the same number of balls","Every player bowls the same number of overs","Development-focused — not recorded in PlayHQ","Ages 7 to 12","Organised through Redlands Cricket Inc (RCI)","Ideal transition from Cricket Blast","Emphasis on participation and skill development"],
   },
-  "bears-cricket": {
-    num:"03", icon:"🏏", tag:"Divisional Cricket", name:"BEARS Junior Cricket",
-    detail:`BEARS Junior Cricket is the competitive divisional competition organised by the Bayside East & Redlands Cricket Association (BEARS). This is full divisional cricket for players ready to compete at a higher level, with teams graded based on age and skill across multiple divisions.
+  "junior-cricket": {
+    num:"03", icon:"🏏", tag:"Divisional Cricket", name:"Junior Cricket", season:"Summer",
+    detail:`Junior Cricket at Wello Wildcats is the competitive divisional competition organised by the Bayside East & Redlands Cricket Association (BEARS). This is full divisional cricket for players ready to compete at a higher level, with teams graded based on age and skill across multiple divisions.
 
 BEARS cricket is played in both one-day and two-day formats. In a one-day match, each team plays 25 overs per innings, with a total of 50 overs available for the day. Batting and bowling responsibilities are shared across the whole team, ensuring every player contributes meaningfully to the game regardless of their position.
 
-Two-day games provide an additional challenge and are played across consecutive weekends, developing patience, match awareness and game management skills. All results and player statistics are recorded in PlayHQ, making BEARS the official entry point into the Cricket Australia data ecosystem for junior players.
+Two-day games provide an additional challenge and are played across consecutive weekends, developing patience, match awareness and game management skills. All results and player statistics are recorded in PlayHQ, making this the official entry point into the Cricket Australia data ecosystem for junior players.
 
 The BEARS competition is the primary pathway for junior players aspiring to progress to senior club cricket at Wello Wildcats.`,
     features:["One-day format: 25 overs per team","Two-day format: 50 overs per day","Batting and bowling shared equally across team","All results recorded in PlayHQ","Multiple divisions based on age and skill","Organised by BEARS (Bayside East & Redlands)","Clear pathway to senior cricket","Played across Redlands-area grounds"],
   },
   "senior-cricket": {
-    num:"04", icon:"🏆", tag:"Adults & Masters (35+)", name:"Senior Cricket",
+    num:"04", icon:"🏆", tag:"Adults & Masters (35+)", name:"Senior Cricket", season:"Summer",
     detail:`Senior cricket at Wello Wildcats is played in the Queensland Sub Districts Cricket Association (QSDCA) on Saturday afternoons. The club fields multiple grades — 1st Grade, 2nd Grade and 3rd Grade — catering to players across all ability levels, from competitive cricketers through to those playing for the enjoyment of the game.
 
 The Masters XI provides an excellent pathway for players aged 35 and over who wish to continue playing competitive cricket in a setting that balances competitiveness with the social aspects of the game.
 
-All QSDCA matches are played on turf wickets, which is a hallmark of the competition and a major draw for senior players in the region. The season commences on the third weekend of September and concludes with the grand final in early March, giving players a full and rewarding summer of cricket at Mooroondu Road.`,
+All QSDCA matches are played on turf wickets, which is a hallmark of the competition and a major draw for senior players in the region. The season commences on the third weekend of September and concludes with the grand final in early March, giving players a full and rewarding summer of cricket at 16 Ivy Street, Thorneside.`,
     features:["QSDCA Saturday afternoon competition","1st Grade, 2nd Grade and 3rd Grade","Masters XI for players aged 35 and over","All matches played on turf wickets","Season: September to March","Grand final held in early March","Home games at 16 Ivy Street, Thorneside","Strong social and competitive culture"],
+  },
+  "warehouse-cricket": {
+    num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket", season:"Winter",
+    detail:`Warehouse Cricket is Wello Wildcats' Winter 2026 indoor cricket program, offering competitive cricket across both junior and senior formats when the summer season concludes. It is the perfect way to stay active, maintain your skills and stay connected with your teammates throughout the winter months.
+
+Junior competitions cater for players aged U/12 through to U/16, with age groups typically separated by year level. U/13 and U/14 age groups are further divided into Divisions based on skill level. Junior competitions are held every Saturday.
+
+Senior competitions are available on both Saturdays and Sundays. The Saturday program offers Senior competition alongside the junior grades. On Sundays, senior-only competitions are run on a fortnightly basis, featuring both 50 Over and T20 formats — giving senior players flexible options to suit their schedules.
+
+Any junior player wishing to participate in a senior competition must be at least 12 years of age, with 14 years or older strongly recommended.
+
+Fixtures run from Saturday 2nd May through to mid-August, with semi-finals held across 15th and 22nd August, and the Grand Final on Saturday 29th and Sunday 30th August.`,
+    features:[
+      "Junior competition: U/12 to U/16 age groups — every Saturday",
+      "Senior competition: Saturdays + fortnightly Sundays",
+      "Sunday formats: 50 Over & T20 senior competitions",
+      "U/13 & U/14 divided into Divisions based on skill",
+      "Hours of play: 11:30am – 4:20pm (U/12–U/14) · 11:00am – 4:40pm (U/15–U/16)",
+      "Fixture range: Saturday 2 May → Mid August + finals",
+      "Semi-finals: 15th & 22nd August",
+      "Grand Final: Saturday 29th & Sunday 30th August",
+      "Junior in senior competitions: must be 12+ (14+ recommended)",
+    ],
   },
 };
 
@@ -71,7 +94,12 @@ export default function ProgramDetailPage({ params }: { params: { slug: string }
               <span className="text-[48px]">{p.icon}</span>
               <div>
                 <div className="font-condensed text-[11px] font-bold tracking-[0.15em] uppercase text-gold mb-1">{p.tag}</div>
-                <div className="font-condensed text-[10px] font-bold tracking-[0.12em] uppercase text-white/40">Program {p.num}</div>
+                <div className="flex items-center gap-3">
+                  <div className="font-condensed text-[10px] font-bold tracking-[0.12em] uppercase text-white/40">Program {p.num}</div>
+                  <span className={`font-condensed text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-0.5 rounded ${p.season === "Winter" ? "bg-blue-500/20 text-blue-300" : "bg-gold/20 text-gold"}`}>
+                    {p.season} Season
+                  </span>
+                </div>
               </div>
             </div>
             <h1 className="font-serif text-[clamp(32px,4.5vw,56px)] font-black text-white leading-[1.05] mb-4">
@@ -112,9 +140,7 @@ export default function ProgramDetailPage({ params }: { params: { slug: string }
               </div>
               <div className="bg-white rounded-lg p-7 border border-grey-light">
                 <div className="font-condensed text-[10px] font-bold tracking-[0.15em] uppercase text-gold mb-3">Questions?</div>
-                <p className="text-[13px] text-wello-grey leading-[1.65] mb-4">
-                  Contact the club for more information about this program.
-                </p>
+                <p className="text-[13px] text-wello-grey leading-[1.65] mb-4">Contact the club for more information.</p>
                 <Link href="/contact" className="font-condensed text-[12px] font-bold tracking-[0.1em] uppercase text-green-dark no-underline hover:text-gold transition-colors">
                   Contact Us →
                 </Link>

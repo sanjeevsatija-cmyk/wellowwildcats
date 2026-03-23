@@ -37,13 +37,20 @@ export default function Hero() {
 
           {/* SVG Logo + Heading */}
           <div className="flex items-center gap-6 mb-6">
-            <Image
-              src="/logo.svg"
-              alt="Wellington Point Wildcats"
-              width={140}
-              height={140}
-              className="w-32 h-32 object-contain flex-shrink-0"
-            />
+            <div className="flex flex-col items-center flex-shrink-0">
+              <Image
+                src="/logo.svg"
+                alt="Wellington Point Wildcats"
+                width={140}
+                height={140}
+                className="w-32 h-32 object-contain"
+              />
+              <div className="flex items-center gap-2 mt-2">
+                <span className="block w-5 h-px bg-gold/60" />
+                <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold">Est. 1895</span>
+                <span className="block w-5 h-px bg-gold/60" />
+              </div>
+            </div>
             <h1 className="font-serif text-[clamp(36px,5vw,68px)] font-black leading-[1.0] text-white">
               Wellington Point<br />
               <em className="not-italic text-gold">Cricket Club</em>

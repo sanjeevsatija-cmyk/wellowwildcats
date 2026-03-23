@@ -99,7 +99,7 @@ export default function GalleryPage() {
               Got great shots from a match or training session? Send them through and
               we&apos;ll add them to the gallery.
             </p>
-            <a href="mailto:secretary@wellowildcats.com.au?subject=Photo submission" className="btn-primary">
+            <a href="mailto:president@wellowildcats.com.au?subject=Photo submission" className="btn-primary">
               Submit Photos
             </a>
           </div>
