@@ -28,7 +28,7 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-[200] bg-green-dark flex items-center justify-between px-10 h-[68px] shadow-[0_2px_20px_rgba(0,0,0,0.3)]">
+    <nav className="sticky top-0 z-[200] bg-green-dark flex items-center justify-between px-4 md:px-10 overflow-hidden h-[68px] shadow-[0_2px_20px_rgba(0,0,0,0.3)]">
       {/* Logo — SVG transparent, merges with nav background */}
       <Link href="/" className="flex items-center gap-3 no-underline flex-shrink-0">
         <Image

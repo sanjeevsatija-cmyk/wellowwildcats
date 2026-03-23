@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ overflowX: "hidden" }}>
       {/* Site design & development: Sanjeev Satija © 2025 */}
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
