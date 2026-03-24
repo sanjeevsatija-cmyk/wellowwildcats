@@ -83,7 +83,7 @@ function ComingSoon() {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  if (process.env.COMING_SOON === "true") {
+    if (process.env.COMING_SOON === "true") {
     return <ComingSoon />;
   }
 
