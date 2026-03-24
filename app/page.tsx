@@ -1,39 +1,29 @@
-import Topbar        from "@/components/layout/Topbar";
-import Nav           from "@/components/layout/Nav";
-import Footer        from "@/components/layout/Footer";
-import Hero          from "@/components/home/Hero";
-import MatchesStrip  from "@/components/home/MatchesStrip";
-import ProgramsGrid  from "@/components/home/ProgramsGrid";
-import NewsGrid      from "@/components/home/NewsGrid";
-import GalleryMosaic from "@/components/home/GalleryMosaic";
-import SponsorsGrid  from "@/components/home/SponsorsGrid";
-import JoinCTA       from "@/components/home/JoinCTA";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Wellington Point Cricket Club — Wello Wildcats | Est. 1895",
-  description:
-    "Wellington Point Cricket Club — Est. 1895. Community cricket at Mooroondu Road, Thorneside QLD. Junior Blasters, Junior, Senior and Masters cricket for all ages in the Redlands.",
-};
-
-// Revalidate every hour (ISR)
-export const revalidate = 3600;
-
-export default function HomePage() {
+export default function ComingSoon() {
   return (
-    <>
-      <Topbar />
-      <Nav />
-      <main>
-        <Hero />
-        <MatchesStrip />
-        <ProgramsGrid />
-        <NewsGrid />
-        <GalleryMosaic />
-        <SponsorsGrid />
-        <JoinCTA />
-      </main>
-      <Footer />
-    </>
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#142E14",
+        fontFamily: "sans-serif",
+        textAlign: "center",
+        padding: "2rem",
+      }}
+    >
+      <img src="/logo.svg" alt="Wello Wildcats" style={{ width: 100, marginBottom: "1.5rem", opacity: 0.9 }} />
+      <h1 style={{ color: "#C9A030", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 900, margin: "0 0 1rem" }}>
+        Coming Soon
+      </h1>
+      <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 16, maxWidth: 400, lineHeight: 1.7 }}>
+        The new Wellington Point Cricket Club website is under construction.
+        Check back soon.
+      </p>
+      <p style={{ marginTop: "2rem", color: "rgba(255,255,255,0.3)", fontSize: 13 }}>
+        Est. 1895 · Wello Wildcats
+      </p>
+    </main>
   );
 }
