@@ -1,4 +1,14 @@
-const TEAMS = ["1st Grade","2nd Grade","3rd Grade","Masters","RCI Trebles","BEARS U17","BEARS U14","Cricket Blast"];
+const TEAMS = [
+  { label: "BEARS Junior Divisional Cricket", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/bears-junior-divisional-cricket-summer-202526/fd7e9a70/teams" },
+  { label: "Girls Only Junior Sunday (EDJCA)", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/girls-only-junior-sunday-competition-via-edjca-summer-202526/e7527b89/teams" },
+  { label: "Junior Competition", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/junior-competition-winter-2026/c0621f81/teams" },
+  { label: "Senior Competition (Warehouse)", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/senior-competition-winter-2026/5eb3dc88/teams" },
+  { label: "Post Christmas T20 Junior", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/post-christmas-t20-junior-competition-summer-202526/a1809052/teams" },
+  { label: "QSDCA Competitions", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/qsdca-competitions-summer-202526/b3a6621f/teams" },
+  { label: "Redlands Trebles", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/redlands-trebles-summer-202526/4f9ab34c/teams" },
+  { label: "Senior Competition (Community)", url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/senior-competition-summer-202526/c8eda977/teams" },
+];
+
 const PLAYHQ_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2";
 
 export default function MatchesStrip() {
@@ -13,9 +23,9 @@ export default function MatchesStrip() {
           </div>
           <div className="flex flex-wrap gap-2 mt-2 md:mt-0 md:inline-flex">
             {TEAMS.map((t) => (
-              <a key={t} href={PLAYHQ_URL} target="_blank" rel="noopener noreferrer"
+              <a key={t.label} href={t.url} target="_blank" rel="noopener noreferrer"
                 className="team-btn text-xs">
-                {t} ▶
+                {t.label} ▶
               </a>
             ))}
           </div>

@@ -21,7 +21,7 @@ const PLATINUM = [
 ];
 
 const GOLD = [
-  { name:"Cricket Gurus",  type:"Cricket Equipment",  logo:"",              href:"https://www.cricketgurus.com.au/",  icon:"🏏", logoBg:"bg-white",
+  { name:"Cricket Gurus",  type:"Cricket Equipment",  logo:"/sponsors/cricketgurus.png", href:"https://www.cricketgurus.com.au/", icon:"", logoBg:"bg-white",
     desc:"Cricket Gurus is a cricket specialty store carrying all major brands. Best price, best service, best quality." },
   { name:"LG Wealth",      type:"Financial Services",  logo:"/sponsors/lgwealth.png", href:"https://lgwealth.com.au/", icon:"", logoBg:"bg-white",
     desc:"Expert financial planning and wealth management services for the Redlands community." },
@@ -49,7 +49,6 @@ export default function SponsorsPage() {
                       Platinum Sponsor
                     </span>
                   </div>
-                  {/* Logo area */}
                   <div className={`mx-5 mb-4 rounded-lg ${s.logoBg} flex items-center justify-center p-4 h-[100px]`}>
                     <Image src={s.logo} alt={s.name} width={240} height={80}
                       className="object-contain max-h-[80px] w-auto" />
@@ -79,7 +78,6 @@ export default function SponsorsPage() {
                       Gold Sponsor
                     </span>
                   </div>
-                  {/* Logo area */}
                   <div className={`mx-5 mb-4 rounded-lg ${s.logoBg} flex items-center justify-center p-4 h-[100px] border border-grey-light`}>
                     {s.logo ? (
                       <Image src={s.logo} alt={s.name} width={240} height={80}

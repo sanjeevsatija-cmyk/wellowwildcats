@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 const SPONSORS = [
-  { name:"Manny's Italian",       type:"Restaurant",          logo:"/sponsors/mannys.png",      href:"https://www.mannysitalian.com.au/",   tier:"platinum", logoBg:"bg-black" },
-  { name:"Punjab Curry Club",     type:"Restaurant",          logo:"/sponsors/punjab.png",       href:"https://punjabcurryclub.com.au/",     tier:"platinum", logoBg:"bg-black" },
-  { name:"Mortgage Finance Guru", type:"Finance & Mortgages", logo:"/sponsors/mortgageguru.png", href:"https://mortgagefinanceguru.com.au/", tier:"platinum", logoBg:"bg-black" },
-  { name:"Cricket Gurus",         type:"Cricket Equipment",   logo:"",                           href:"https://www.cricketgurus.com.au/",    tier:"gold",     logoBg:"bg-cream", icon:"🏏" },
-  { name:"LG Wealth",             type:"Financial Services",  logo:"/sponsors/lgwealth.png",     href:"https://lgwealth.com.au/",            tier:"gold",     logoBg:"bg-white" },
+  { name:"Manny's Italian",       type:"Restaurant",          logo:"/sponsors/mannys.png",         href:"https://www.mannysitalian.com.au/",   tier:"platinum", logoBg:"bg-black" },
+  { name:"Punjab Curry Club",     type:"Restaurant",          logo:"/sponsors/punjab.png",          href:"https://punjabcurryclub.com.au/",     tier:"platinum", logoBg:"bg-black" },
+  { name:"Mortgage Finance Guru", type:"Finance & Mortgages", logo:"/sponsors/mortgageguru.png",    href:"https://mortgagefinanceguru.com.au/", tier:"platinum", logoBg:"bg-black" },
+  { name:"Cricket Gurus",         type:"Cricket Equipment",   logo:"/sponsors/cricketgurus.png",    href:"https://www.cricketgurus.com.au/",    tier:"gold",     logoBg:"bg-white" },
+  { name:"LG Wealth",             type:"Financial Services",  logo:"/sponsors/lgwealth.png",        href:"https://lgwealth.com.au/",            tier:"gold",     logoBg:"bg-white" },
 ];
 
 export default function SponsorsGrid() {
@@ -54,12 +54,8 @@ export default function SponsorsGrid() {
               <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                 className="bg-cream border border-grey-light hover:border-gold rounded-lg px-4 py-3 no-underline transition-all hover:-translate-y-0.5 group flex items-center gap-3">
                 <div className={`${s.logoBg} rounded border border-grey-light p-1.5 flex-shrink-0 w-16 h-10 flex items-center justify-center`}>
-                  {s.logo ? (
-                    <Image src={s.logo} alt={s.name} width={56} height={32}
-                      className="object-contain max-h-[32px] w-auto" />
-                  ) : (
-                    <span className="text-2xl">{s.icon}</span>
-                  )}
+                  <Image src={s.logo} alt={s.name} width={56} height={32}
+                    className="object-contain max-h-[32px] w-auto" />
                 </div>
                 <div className="min-w-0">
                   <div className="font-condensed text-[11px] font-bold text-charcoal leading-tight truncate">{s.name}</div>

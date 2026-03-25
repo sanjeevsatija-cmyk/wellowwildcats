@@ -50,7 +50,7 @@ All QSDCA matches are played on turf wickets, which is a hallmark of the competi
   },
   "warehouse-cricket": {
     num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket", season:"Winter",
-    detail:`Warehouse Cricket is Wello Wildcats' Winter 2026 indoor cricket program, offering competitive cricket across both junior and senior formats when the summer season concludes. It is the perfect way to stay active, maintain your skills and stay connected with your teammates throughout the winter months.
+    detail:`Warehouse Cricket is Wello Wildcats' Winter 2026 cricket program, offering competitive cricket across both junior and senior formats when the summer season concludes. It is the perfect way to stay active, maintain your skills and stay connected with your teammates throughout the winter months.
 
 Junior competitions cater for players aged U/12 through to U/16, with age groups typically separated by year level. U/13 and U/14 age groups are further divided into Divisions based on skill level. Junior competitions are held every Saturday.
 

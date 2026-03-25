@@ -45,7 +45,7 @@ const PROGRAMS = [
   {
     slug:"warehouse-cricket", num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket",
     color:"bg-green-dark",
-    short:"Indoor cricket for Winter 2026 — junior and senior competitions every Saturday, with senior-only Sunday competitions fortnightly.",
+    short:"Winter 2026 cricket — junior and senior competitions every Saturday, with senior-only Sunday competitions fortnightly.",
     features:["Junior & Senior Saturday competitions","Sunday Senior grades (fortnightly)","U/12–U/16 junior age groups","50 Over & T20 formats (Sundays)","Fixture: 2 May – Mid August + finals","Grand Final: 29–30 August"],
     season:"Winter",
   },

@@ -67,7 +67,7 @@ const competitions = [
     statusGreen: true,
     summary: "Junior (U12–U16) · Saturday competition",
     description:
-      "Indoor warehouse cricket for juniors through the winter months. Saturday competition for U12–U16 age groups.",
+      "Warehouse cricket for juniors through the winter months. Saturday competition for U12–U16 age groups.",
     details: [
       "Fixtures: 2 May → mid August",
       "U12–U14: 11:30am–4:20pm",
@@ -90,7 +90,7 @@ const competitions = [
     statusGreen: true,
     summary: "Senior · Saturdays + fortnightly Sundays (50 Over & T20)",
     description:
-      "Indoor warehouse cricket for seniors through the winter months. Saturday competition plus fortnightly Sunday matches in both 50 Over and T20 formats.",
+      "Warehouse cricket for seniors through the winter months. Saturday competition plus fortnightly Sunday matches in both 50 Over and T20 formats.",
     details: [
       "Saturday competition",
       "Fortnightly Sunday — 50 Over & T20",

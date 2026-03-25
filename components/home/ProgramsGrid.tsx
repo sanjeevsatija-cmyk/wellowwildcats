@@ -8,7 +8,7 @@ const PROGRAMS = [
   { num:"03", icon:"🏏", tag:"Divisional Cricket", name:"Junior Cricket",     href:"/programs/junior-cricket",     color:"bg-green-dark",
     desc:"Competitive BEARS divisional cricket. One-day and two-day formats with shared batting and bowling." },
   { num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket", href:"/programs/warehouse-cricket",  color:"bg-green-dark",
-    desc:"Winter 2026 indoor cricket. Junior & senior Saturdays plus fortnightly Sunday senior competitions." },
+    desc:"Winter 2026 cricket. Junior & senior Saturdays plus fortnightly Sunday senior competitions." },
   { num:"04", icon:"🏆", tag:"Adults & Masters (35+)", name:"Senior Cricket", href:"/programs/senior-cricket",     color:"bg-green-dark",
     desc:"QSDCA Saturday turf competition. 1st, 2nd, 3rd Grade and Masters XI. Season September – March." },
 ];
@@ -25,7 +25,6 @@ export default function ProgramsGrid() {
           From five-year-olds picking up a bat for the first time, through to senior and Masters cricket.
         </p>
 
-        {/* Mobile: stacked cards | Tablet: 2-col | Desktop: 5-col strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 rounded-lg overflow-hidden shadow-programs">
           {PROGRAMS.map((p) => (
             <Link key={p.num} href={p.href}

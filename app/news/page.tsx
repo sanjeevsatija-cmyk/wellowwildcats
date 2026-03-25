@@ -25,6 +25,9 @@ const RESOURCES = [
     items: [
       { title:"Players Code of Conduct", desc:"The Wello Wildcats Players Code of Conduct — 'Our Pride'. Required reading for all registered players.", file:"/WelloWildcats_CodeOfConduct.pdf", type:"PDF", icon:"📋" },
       { title:"BEARS Rules 2025–2026", desc:"Official BEARS rules for the conduct of cricket 2025–2026. Required reading for all BEARS coaches, managers and umpires.", file:"/BEARS_Rules_2025.pdf", type:"PDF", icon:"📋" },
+      { title:"Member Protection Policy", desc:"Wellington Point Cricket Club Member Protection Policy. Covers child protection, discrimination, harassment, complaints and working with children requirements.", file:"/Member-Protection-Policy.pdf", type:"PDF", icon:"🛡️" },
+      { title:"Get Started — Funding for Kids", desc:"Queensland Government Get Started voucher program. Funding up to $150 to help children join a sport or recreation club.", file:"/Get-Started-fact-sheet-parents.pdf", type:"PDF", icon:"📄" },
+      { title:"Blue Card Application", desc:"Working with Children Check — Blue Card application form. Required for all coaches, volunteers and staff working with players under 18.", file:"/PSBA001MAY16-BC-Blue-card-application.pdf", type:"PDF", icon:"🪪" },
     ],
   },
   {
@@ -146,7 +149,7 @@ export default function NewsResourcesPage() {
                       href={item.file}
                       target="_blank"
                       rel="noopener noreferrer"
-                      download={item.type === "PDF" ? true : undefined}
+                      download={'external' in item ? undefined : true}
                       className="bg-cream rounded-lg border border-grey-light p-5 no-underline group hover:border-gold hover:shadow-[0_6px_20px_rgba(201,160,48,0.1)] transition-all duration-200 flex gap-4 items-start">
                       <div className="text-3xl flex-shrink-0 mt-0.5">{item.icon}</div>
                       <div className="flex-1 min-w-0">
