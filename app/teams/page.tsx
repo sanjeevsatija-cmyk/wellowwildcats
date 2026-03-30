@@ -1,8 +1,8 @@
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/shared/PageHero";
 import SectionWrapper from "@/components/shared/SectionWrapper";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -67,7 +67,7 @@ const competitions = [
     statusGreen: true,
     summary: "Junior (U12–U16) · Saturday competition",
     description:
-      "Warehouse cricket for juniors through the winter months. Saturday competition for U12–U16 age groups.",
+      "Indoor warehouse cricket for juniors through the winter months. Saturday competition for U12–U16 age groups.",
     details: [
       "Fixtures: 2 May → mid August",
       "U12–U14: 11:30am–4:20pm",
@@ -90,7 +90,7 @@ const competitions = [
     statusGreen: true,
     summary: "Senior · Saturdays + fortnightly Sundays (50 Over & T20)",
     description:
-      "Warehouse cricket for seniors through the winter months. Saturday competition plus fortnightly Sunday matches in both 50 Over and T20 formats.",
+      "Indoor warehouse cricket for seniors through the winter months. Saturday competition plus fortnightly Sunday matches in both 50 Over and T20 formats.",
     details: [
       "Saturday competition",
       "Fortnightly Sunday — 50 Over & T20",
@@ -188,11 +188,22 @@ export default function TeamsPage() {
       <Topbar />
       <Nav />
       <main>
-        <PageHero
-          label="Season 2025/26"
-          title="Our Teams"
-          subtitle="Wellington Point CC fields teams across eight competitions — from senior turf cricket to junior development programs and winter warehouse cricket."
-        />
+        {/* Photo hero banner */}
+        <div className="relative w-full h-[320px] md:h-[440px] overflow-hidden">
+          <Image
+            src="/Team1.jpg"
+            alt="Wello Wildcats — Season 2025/26"
+            fill
+            sizes="100vw"
+            className="object-cover object-top"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-green-deep/70 via-green-deep/20 to-transparent" />
+          <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14">
+            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-1">Season 2025/26</span>
+            <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">Our Teams</h1>
+          </div>
+        </div>
 
         <SectionWrapper className="bg-cream">
           {/* Intro note */}

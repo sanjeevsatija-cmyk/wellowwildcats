@@ -20,7 +20,7 @@ const COMMITTEE = [
 ];
 
 const FACILITIES = [
-  { icon:"🏏", title:"Turf Wicket",       desc:"Well-maintained turf wicket for all senior QSDCA Saturday competition matches." },
+  { icon:"🏏", title:"Turf Wicket",       desc:"Well-maintained turf wicket for all senior QSDCA Saturday competition matches.", photo:"/Pitch1.jpg" },
   { icon:"🟩", title:"Synthetic Wicket",  desc:"Synthetic practice wicket available for training and junior matches." },
   { icon:"🎯", title:"4 Practice Nets",   desc:"Four fully equipped practice nets for individual and team training." },
   { icon:"🏠", title:"Modern Clubhouse",  desc:"Full facilities through the Mooroondu Sports & Recreation Club including canteen and bar." },
@@ -82,20 +82,23 @@ export default function AboutPage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {FACILITIES.map((f) => (
-              <div key={f.title} className="bg-white rounded-lg p-6 md:p-8 border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.1)] transition-all duration-200">
-                <div className="text-3xl md:text-4xl mb-3 md:mb-4">{f.icon}</div>
-                <h3 className="font-condensed text-[14px] md:text-[16px] font-bold tracking-[0.04em] text-green-dark mb-2 md:mb-3">{f.title}</h3>
-                <p className="text-[12px] md:text-[13px] text-wello-grey leading-[1.65]">{f.desc}</p>
+              <div key={f.title} className="bg-white rounded-lg border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.1)] transition-all duration-200 overflow-hidden">
+                {(f as any).photo ? (
+                  <div className="relative h-[160px] w-full">
+                    <Image src={(f as any).photo} alt={f.title} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover object-center" />
+                  </div>
+                ) : null}
+                <div className="p-6 md:p-8">
+                  {!(f as any).photo && <div className="text-3xl md:text-4xl mb-3 md:mb-4">{f.icon}</div>}
+                  <h3 className="font-condensed text-[14px] md:text-[16px] font-bold tracking-[0.04em] text-green-dark mb-2 md:mb-3">{f.title}</h3>
+                  <p className="text-[12px] md:text-[13px] text-wello-grey leading-[1.65]">{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
-          <div className="mt-8 md:mt-12 rounded-lg overflow-hidden border border-grey-light relative h-[280px]">
-            <Image
-              src="/Pitch1.jpg"
-              alt="Mooroondu Oval — 16 Ivy Street, Thorneside"
-              fill
-              className="object-cover object-center"
-            />
+          <div className="mt-8 md:mt-12 rounded-lg overflow-hidden border border-grey-light">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.2!2d153.217!3d-27.503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDMwJzEwLjgiUyAxNTLCsDEzJzAxLjIiRQ!5e0!3m2!1sen!2sau!4v1234567890"
+              width="100%" height="280" style={{ border:0 }} allowFullScreen loading="lazy" title="16 Ivy Street Thorneside" />
           </div>
           <p className="text-center font-condensed text-[11px] text-wello-grey tracking-[0.08em] uppercase mt-3">
             📍 16 Ivy Street, Thorneside QLD 4158
