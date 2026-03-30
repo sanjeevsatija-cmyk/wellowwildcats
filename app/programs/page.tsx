@@ -46,7 +46,7 @@ const PROGRAMS = [
     name: "Girls Cricket",
     age: "All ages",
     tag: "Girls only program",
-    photo: null,
+    photo: "/Girl_Power.jpg",
     desc: "A dedicated space for girls to play, develop and thrive. Linked to the EDJCA Girls Only Sunday Competition with a Winter 2026 season upcoming.",
     features: ["Girls of all ages & skill levels","Supportive, inclusive environment","EDJCA Sunday competition","Winter 2026 season upcoming","Pathway into women's cricket"],
   },
