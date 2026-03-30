@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -182,22 +183,103 @@ const competitions = [
 const REG_URL =
   "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
 
+
+"use client";
+
+function AccordionList({ competitions }: { competitions: any[] }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <div className="flex flex-col gap-3">
+      {competitions.map((comp: any, i: number) => {
+        const isOpen = openIdx === i;
+        return (
+          <div
+            key={`${comp.association}-${comp.name}`}
+            className="rounded-xl border border-grey-light bg-white overflow-hidden"
+            style={{ borderLeftWidth: "4px", borderLeftColor: comp.borderColor }}
+          >
+            {/* Header — always visible */}
+            <button
+              onClick={() => setOpenIdx(isOpen ? null : i)}
+              className="w-full text-left px-5 md:px-7 py-4 md:py-5 flex items-center gap-4 group"
+            >
+              <div className="flex-1 min-w-0">
+                <p className="font-condensed text-[9px] font-bold tracking-[0.15em] uppercase text-wello-grey mb-1">
+                  {comp.association}
+                </p>
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <h2 className="font-serif text-[clamp(15px,1.8vw,20px)] font-black text-green-dark leading-tight">
+                    {comp.name}
+                  </h2>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className={`rounded-full px-2.5 py-0.5 font-condensed text-[9px] font-bold tracking-[0.1em] uppercase text-white ${comp.statusGreen ? "bg-emerald-600" : "bg-amber-500"}`}>
+                    {comp.status}
+                  </span>
+                  {comp.seasons.map((s: string) => (
+                    <span key={s} className="rounded-full border border-grey-light bg-cream px-2.5 py-0.5 font-condensed text-[9px] font-bold tracking-[0.1em] uppercase text-wello-grey">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <span className={`text-wello-grey text-lg flex-shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
+                ▾
+              </span>
+            </button>
+
+            {/* Expanded body — gold tint */}
+            {isOpen && (
+              <div className="px-5 md:px-7 py-5 border-t border-gold/20" style={{ backgroundColor: "#FFF8E7" }}>
+                <p className="font-condensed text-[11px] font-bold tracking-[0.08em] uppercase text-gold mb-3">
+                  {comp.summary}
+                </p>
+                <p className="text-[14px] leading-relaxed text-wello-grey mb-4">
+                  {comp.description}
+                </p>
+                {comp.details.length > 0 && (
+                  <ul className="flex flex-wrap gap-x-6 gap-y-1.5 mb-5">
+                    {comp.details.map((d: string) => (
+                      <li key={d} className="flex items-center gap-1.5 font-condensed text-[11px] text-wello-grey">
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: comp.borderColor }} />
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  {comp.links.map((link: any) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary whitespace-nowrap inline-flex items-center gap-2"
+                    >
+                      {link.label}
+                      <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function TeamsPage() {
   return (
     <>
       <Topbar />
       <Nav />
       <main>
-        {/* Photo hero banner */}
         <div className="relative w-full h-[320px] md:h-[440px] overflow-hidden">
-          <Image
-            src="/Team1.jpg"
-            alt="Wello Wildcats — Season 2025/26"
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
-            priority
-          />
+          <Image src="/Team1.jpg" alt="Wello Wildcats — Season 2025/26" fill sizes="100vw" className="object-cover object-center" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-green-deep/70 via-green-deep/20 to-transparent" />
           <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14">
             <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-1">Season 2025/26</span>
@@ -206,120 +288,10 @@ export default function TeamsPage() {
         </div>
 
         <SectionWrapper className="bg-cream">
-          {/* Intro note */}
-          <div className="mb-10 rounded-lg border border-gold/30 bg-green-deep/5 px-6 py-4 text-[13px] text-wello-grey">
-            <span className="font-semibold text-green-dark">Team names change each season</span>{" "}
-            — our junior sides are named after their coaches who rotate yearly. For the most
-            accurate and up-to-date team lists, rosters, and fixtures, always use the{" "}
-            <a
-              href="https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-gold underline underline-offset-2 hover:text-gold-bright"
-            >
-              official PlayHQ club page
-            </a>
-            .
-          </div>
 
-          {/* Competition cards */}
-          <div className="flex flex-col gap-6">
-            {competitions.map((comp) => (
-              <div
-                key={`${comp.association}-${comp.name}`}
-                className="rounded-lg border border-grey-light bg-white shadow-sm transition-shadow hover:shadow-md overflow-hidden"
-                style={{ borderLeftWidth: "4px", borderLeftColor: comp.borderColor }}
-              >
-                <div className="p-6 md:p-8">
-                  <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-                    {/* Left: info */}
-                    <div className="flex-1">
-                      {/* Association name */}
-                      <p className="font-condensed text-[10px] font-bold tracking-[0.15em] uppercase text-wello-grey mb-1">
-                        {comp.association}
-                      </p>
 
-                      {/* Competition name + badges */}
-                      <div className="mb-3 flex flex-wrap items-center gap-3">
-                        <h2 className="font-serif text-[clamp(17px,2vw,22px)] font-black text-green-dark">
-                          {comp.name}
-                        </h2>
-                        <span
-                          className={`rounded-full px-3 py-0.5 font-condensed text-[10px] font-bold tracking-[0.12em] uppercase text-white ${
-                            comp.statusGreen ? "bg-emerald-600" : "bg-amber-500"
-                          }`}
-                        >
-                          {comp.status}
-                        </span>
-                        {comp.seasons.map((s) => (
-                          <span
-                            key={s}
-                            className="rounded-full border border-grey-light bg-cream px-3 py-0.5 font-condensed text-[10px] font-bold tracking-[0.1em] uppercase text-wello-grey"
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Summary */}
-                      <p className="mb-3 font-condensed text-[12px] font-bold tracking-[0.08em] uppercase text-gold">
-                        {comp.summary}
-                      </p>
-
-                      {/* Description */}
-                      <p className="mb-4 text-[14px] leading-relaxed text-wello-grey">
-                        {comp.description}
-                      </p>
-
-                      {/* Detail bullets */}
-                      <ul className="flex flex-wrap gap-x-6 gap-y-1.5">
-                        {comp.details.map((d) => (
-                          <li
-                            key={d}
-                            className="flex items-center gap-1.5 font-condensed text-[11px] text-wello-grey"
-                          >
-                            <span
-                              className="h-1.5 w-1.5 shrink-0 rounded-full"
-                              style={{ backgroundColor: comp.borderColor }}
-                            />
-                            {d}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Right: CTA button(s) */}
-                    <div className="shrink-0 md:pl-8 md:pt-1 flex flex-col gap-3">
-                      {comp.links.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-primary whitespace-nowrap inline-flex items-center gap-2"
-                        >
-                          {link.label}
-                          <svg
-                            className="h-3.5 w-3.5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                            />
-                          </svg>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Accordion competition cards */}
+          <AccordionList competitions={competitions} />
         </SectionWrapper>
 
         {/* Bottom CTA */}
