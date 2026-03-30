@@ -1,180 +1,230 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/shared/PageHero";
-import SectionWrapper from "@/components/shared/SectionWrapper";
-import Link from "next/link";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "News & Resources",
-  description: "Latest news, match reports and club resources from Wellington Point Cricket Club.",
-};
-
 const NEWS = [
-  { slug:"1sts-win-round-14", cat:"Match Report", date:"9 Mar 2026", title:"1sts Dominate in Round 14 Victory", excerpt:"A dominant batting display saw the 1sts post 9/287 before rolling the opposition for 164 in an emphatic 123-run victory at 16 Ivy Street on Saturday.", featured:true },
-  { slug:"2nds-finals-push",  cat:"Match Report", date:"9 Mar 2026", title:"2nds Strengthen Finals Push with Gritty Win", excerpt:"The 2nd Grade side produced a disciplined performance to secure a hard-fought victory, strengthening their finals position.", featured:false },
-  { slug:"junior-registrations-open", cat:"Club News", date:"1 Mar 2026", title:"Winter 2026 Registrations Now Open", excerpt:"Warehouse Cricket winter 2026 registrations are now open. Register early to secure your spot — fixtures start Saturday 2nd May.", featured:false },
-  { slug:"bears-u17-finals",  cat:"Junior News", date:"25 Feb 2026", title:"BEARS U17 Qualify for Finals", excerpt:"The U17 BEARS team has secured a finals berth after a strong performance in the final rounds of the regular season.", featured:false },
-  { slug:"cricket-blast-start", cat:"Junior News", date:"18 Feb 2026", title:"Cricket Blast Season Kicks Off", excerpt:"Our Cricket Blast program welcomed a new group of young players this week for the start of the 2025/26 season.", featured:false },
+  { slug:"1sts-win-round-14",        cat:"Match Report", date:"9 Mar 2026",  title:"1sts Dominate in Round 14 Victory",          excerpt:"A dominant batting display saw the 1sts post 9/287 before rolling the opposition for 164 in an emphatic 123-run victory at 16 Ivy Street on Saturday.", featured:true },
+  { slug:"2nds-finals-push",          cat:"Match Report", date:"9 Mar 2026",  title:"2nds Strengthen Finals Push with Gritty Win", excerpt:"The 2nd Grade side produced a disciplined performance to secure a hard-fought victory, strengthening their finals position.", featured:false },
+  { slug:"junior-registrations-open", cat:"Club News",    date:"1 Mar 2026",  title:"Winter 2026 Registrations Now Open",         excerpt:"Warehouse Cricket winter 2026 registrations are now open. Register early to secure your spot — fixtures start Saturday 2nd May.", featured:false },
+  { slug:"bears-u17-finals",          cat:"Junior News",  date:"25 Feb 2026", title:"BEARS U17 Qualify for Finals",               excerpt:"The U17 BEARS team has secured a finals berth after a strong performance in the final rounds of the regular season.", featured:false },
+  { slug:"cricket-blast-start",       cat:"Junior News",  date:"18 Feb 2026", title:"Cricket Blast Season Kicks Off",             excerpt:"Our Cricket Blast program welcomed a new group of young players this week for the start of the 2025/26 season.", featured:false },
 ];
+
+const CAT_STYLES: Record<string, { border: string; badge: string; dot: string }> = {
+  "Match Report": { border: "#2A6B2A", badge: "bg-green-dark text-white",    dot: "#2A6B2A" },
+  "Club News":    { border: "#C9A030", badge: "bg-gold text-green-deep",      dot: "#C9A030" },
+  "Junior News":  { border: "#2563eb", badge: "bg-blue-600 text-white",       dot: "#2563eb" },
+  "Event":        { border: "#7c3aed", badge: "bg-purple-600 text-white",     dot: "#7c3aed" },
+};
 
 const RESOURCES = [
   {
     category: "Club Documents",
     items: [
-      { title:"Players Code of Conduct", desc:"The Wello Wildcats Players Code of Conduct — 'Our Pride'. Required reading for all registered players.", file:"/WelloWildcats_CodeOfConduct.pdf", type:"PDF", icon:"📋" },
-      { title:"BEARS Rules 2025–2026", desc:"Official BEARS rules for the conduct of cricket 2025–2026. Required reading for all BEARS coaches, managers and umpires.", file:"/BEARS_Rules_2025.pdf", type:"PDF", icon:"📋" },
-      { title:"Member Protection Policy", desc:"Wellington Point Cricket Club Member Protection Policy. Covers child protection, discrimination, harassment, complaints and working with children requirements.", file:"/Member-Protection-Policy.pdf", type:"PDF", icon:"🛡️" },
-      { title:"Get Started — Funding for Kids", desc:"Queensland Government Get Started voucher program. Funding up to $150 to help children join a sport or recreation club.", file:"/Get-Started-fact-sheet-parents.pdf", type:"PDF", icon:"📄" },
-      { title:"Blue Card Application", desc:"Working with Children Check — Blue Card application form. Required for all coaches, volunteers and staff working with players under 18.", file:"/PSBA001MAY16-BC-Blue-card-application.pdf", type:"PDF", icon:"🪪" },
-    ],
-  },
-  {
-    category: "Electronic Scoring (PlayHQ)",
-    intro: "Electronic scoring allows results to sync live to PlayHQ and the Play Cricket app. Access the scoring app at score.playhq.com.",
-    items: [
-      { title:"How to e-Score a Cricket Game", desc:"Complete step-by-step guide: starting a game, recording runs/wickets/extras, changing batters and bowlers, ending overs, innings and games.", file:"https://support.playhq.com/hc/en-us/articles/24948598336156-How-to-e-Score-a-Cricket-game", type:"Guide", icon:"🏏", external:true },
-      { title:"Cricket e-Scoring FAQs", desc:"Common questions: adding fill-in players, correcting game settings, applying DLS, and when scores appear live online.", file:"https://support.playhq.com/hc/en-us/articles/24948827333532-Cricket-e-Scoring-FAQs", type:"FAQ", icon:"❓", external:true },
-      { title:"DLS Calculator on PlayHQ", desc:"How to use the Duckworth-Lewis-Stern calculator for rain-affected matches.", file:"https://support.playhq.com/hc/en-us/articles/24948620922396-DLS-calculator-on-PlayHQ", type:"Guide", icon:"🌧️", external:true },
-      { title:"Recording Runs, Wickets & Extras", desc:"All delivery outcomes including dot balls, runs, wides, no balls, byes, leg byes, penalty runs and all dismissal types.", file:"https://support.playhq.com/hc/en-us/articles/23971813267484-Recording-Runs-Wickets-and-Extras", type:"Guide", icon:"📊", external:true },
-      { title:"Secondary Scorer", desc:"How to set up a second device to score the same match simultaneously.", file:"https://support.playhq.com/hc/en-us/articles/23977947248796-Secondary-Scorer", type:"Guide", icon:"📱", external:true },
-      { title:"Editing Bowlers, Batters & Line-ups", desc:"How to make corrections to existing entries including bowler/batter details and team line-ups during a match.", file:"https://support.playhq.com/hc/en-us/articles/23976909095324-Editing-bowlers-batters-value-of-runs-extras-team-line-ups", type:"Guide", icon:"✏️", external:true },
-      { title:"Ending an Over, Innings or Game", desc:"How to manually end an over, innings or game — including using the Actions menu to end an innings early.", file:"https://support.playhq.com/hc/en-us/articles/23971718470044-Ending-an-Over-Innings-or-Game", type:"Guide", icon:"🏁", external:true },
-      { title:"Replace Event — Fixing Dot Balls, Runs & Extras", desc:"How to correct a previously recorded ball — changing a dot ball to runs or correcting extra types.", file:"https://support.playhq.com/hc/en-us/articles/23976130850460-Replace-Event-Changing-dot-balls-runs-and-extras", type:"Guide", icon:"↩️", external:true },
-      { title:"Split Innings", desc:"How to handle split innings in two-day game formats.", file:"https://support.playhq.com/hc/en-us/articles/23975262258844-Split-Innings", type:"Guide", icon:"📅", external:true },
+      { title:"Players Code of Conduct", file:"/WelloWildcats_CodeOfConduct.pdf", type:"PDF", icon:"📋", external:false },
+      { title:"BEARS Rules 2025–2026",   file:"/BEARS_Rules_2025.pdf",             type:"PDF", icon:"📋", external:false },
+      { title:"Member Protection Policy",file:"/Member-Protection-Policy.pdf",     type:"PDF", icon:"🛡️", external:false },
     ],
   },
   {
     category: "Registration & PlayHQ",
     items: [
-      { title:"Register to Play", desc:"Register for all Wello Wildcats programs through Cricket Australia's official PlayHQ platform.", file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register", type:"Link", icon:"🏏", external:true },
-      { title:"Club Page on PlayHQ", desc:"View all teams, fixtures, ladders, results and player statistics on the official Wello Wildcats PlayHQ page.", file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2", type:"Link", icon:"📊", external:true },
-      { title:"Cricket Australia Safeguarding Kids", desc:"Cricket Australia's policies and codes for safeguarding children and young people in cricket.", file:"https://www.cricket.com.au/integrity/safeguarding-children", type:"Link", icon:"🛡️", external:true },
+      { title:"Register to Play",                    file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register", type:"Link", icon:"🏏", external:true },
+      { title:"Club Page on PlayHQ",                 file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2",          type:"Link", icon:"📊", external:true },
+      { title:"Cricket Australia Safeguarding Kids", file:"https://www.cricketaustralia.com.au/about/safeguarding/safeguarding-kids",                      type:"Link", icon:"🛡️", external:true },
+      { title:"Get Started – Funding for Kids",      file:"/Get-Started-fact-sheet-parents.pdf",                                                          type:"PDF",  icon:"💰", external:false },
+      { title:"Blue Card Application",               file:"/PSBA001MAY16-BC-Blue-card-application.pdf",                                                   type:"PDF",  icon:"🪪", external:false },
+    ],
+  },
+  {
+    category: "Electronic Scoring (PlayHQ)",
+    intro: "Electronic scoring syncs results live to PlayHQ and the Play Cricket app. Access the scoring app at score.playhq.com.",
+    items: [
+      { title:"How to e-Score a Cricket Game",             file:"https://support.playhq.com/hc/en-us/articles/24948598336156", type:"Guide", icon:"🏏", external:true },
+      { title:"Cricket e-Scoring FAQs",                    file:"https://support.playhq.com/hc/en-us/articles/24948827333532", type:"FAQ",   icon:"❓", external:true },
+      { title:"DLS Calculator on PlayHQ",                  file:"https://support.playhq.com/hc/en-us/articles/24948620922396", type:"Guide", icon:"🌧️", external:true },
+      { title:"Recording Runs, Wickets & Extras",          file:"https://support.playhq.com/hc/en-us/articles/23971813267484", type:"Guide", icon:"📊", external:true },
+      { title:"Secondary Scorer",                          file:"https://support.playhq.com/hc/en-us/articles/23977947248796", type:"Guide", icon:"📱", external:true },
+      { title:"Editing Bowlers, Batters & Line-ups",       file:"https://support.playhq.com/hc/en-us/articles/23976909095324", type:"Guide", icon:"✏️", external:true },
+      { title:"Ending an Over, Innings or Game",           file:"https://support.playhq.com/hc/en-us/articles/23971718470044", type:"Guide", icon:"🏁", external:true },
+      { title:"Replace Event – Fixing Dot Balls & Extras", file:"https://support.playhq.com/hc/en-us/articles/23976130850460", type:"Guide", icon:"↩️", external:true },
+      { title:"Split Innings",                             file:"https://support.playhq.com/hc/en-us/articles/23975262258844", type:"Guide", icon:"📅", external:true },
     ],
   },
 ];
 
-const CAT_COLORS: Record<string, string> = {
-  "Match Report":"bg-green-dark text-white",
-  "Club News":"bg-gold text-green-deep",
-  "Junior News":"bg-blue-600 text-white",
-  "Event":"bg-purple-600 text-white",
-};
+function ResourceAccordion({ section }: { section: typeof RESOURCES[0] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-xl border border-grey-light overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4 bg-white hover:bg-cream transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-2 rounded-full bg-gold flex-shrink-0" />
+          <span className="font-condensed text-[12px] font-bold tracking-[0.12em] uppercase text-green-dark">
+            {section.category}
+          </span>
+          <span className="font-condensed text-[10px] text-wello-grey bg-cream border border-grey-light rounded-full px-2 py-0.5">
+            {section.items.length} items
+          </span>
+        </div>
+        <span
+          className="text-wello-grey text-lg flex-shrink-0 transition-transform duration-200"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          ▾
+        </span>
+      </button>
+
+      {open && (
+        <div className="border-t border-grey-light">
+          {'intro' in section && section.intro && (
+            <div className="px-5 py-3 bg-green-deep/5 border-b border-grey-light">
+              <p className="text-[12px] text-green-dark">💡 {section.intro}</p>
+            </div>
+          )}
+          <div className="divide-y divide-grey-light">
+            {section.items.map((item) => (
+              <a
+                key={item.title}
+                href={item.file}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                download={!item.external ? true : undefined}
+                className="flex items-center gap-4 px-5 py-3 bg-white hover:bg-cream transition-colors no-underline group"
+              >
+                <span className="text-xl flex-shrink-0 w-7 text-center">{item.icon}</span>
+                <span className="flex-1 font-condensed text-[12px] font-bold text-charcoal group-hover:text-green-dark transition-colors">
+                  {item.title}
+                </span>
+                <span className={`font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-2 py-0.5 rounded flex-shrink-0 ${
+                  item.type === "PDF"   ? "bg-red-50 text-red-600" :
+                  item.type === "FAQ"   ? "bg-purple-50 text-purple-600" :
+                  item.type === "Guide" ? "bg-green-50 text-green-700" :
+                  "bg-amber-50 text-amber-700"
+                }`}>{item.type}</span>
+                <span className="font-condensed text-[10px] font-bold text-wello-grey group-hover:text-gold transition-colors flex-shrink-0">
+                  {item.type === "PDF" ? "↓" : "→"}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function NewsResourcesPage() {
-  const featured = NEWS.find(n => n.featured);
-  const rest = NEWS.filter(n => !n.featured);
+  const featured = NEWS.find((n) => n.featured)!;
+  const rest = NEWS.filter((n) => !n.featured);
 
   return (
     <>
       <Topbar />
       <Nav />
       <main>
-        <PageHero label="Stay Informed" title="News & Resources"
-          subtitle="Latest club news, match reports and essential resources for players, coaches and parents." />
 
-        {/* ── NEWS SECTION ── */}
-        <SectionWrapper className="bg-cream">
-          <div className="section-label">Latest News</div>
-          <h2 className="font-serif text-[clamp(26px,3vw,38px)] font-black text-green-dark mb-10">Club News & Match Reports</h2>
+        {/* Hero */}
+        <div className="relative w-full h-[260px] md:h-[360px] overflow-hidden">
+          <Image src="/Events.jpg" alt="Wello Wildcats club event" fill sizes="100vw" className="object-cover object-center" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-green-deep/80 via-green-deep/30 to-transparent" />
+          <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14">
+            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-2">Stay Informed</span>
+            <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">News &amp; Resources</h1>
+          </div>
+        </div>
 
-          {featured && (
-            <Link href={`/news/${featured.slug}`}
-              className="group no-underline block rounded-lg overflow-hidden border border-grey-light hover:border-gold hover:shadow-[0_12px_32px_rgba(201,160,48,0.12)] transition-all duration-300 mb-8">
-              <div className="bg-green-deep h-[240px] flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-mid/30 to-transparent" />
-                <span className="text-[80px] relative z-10">🏏</span>
-                <div className="absolute top-4 left-4">
-                  <span className={`font-condensed text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-1.5 rounded ${CAT_COLORS[featured.cat] || "bg-green-dark text-white"}`}>
-                    {featured.cat}
-                  </span>
-                </div>
+        {/* News section */}
+        <section className="py-12 md:py-16 px-4 md:px-12 bg-cream">
+          <div className="max-w-[1100px] mx-auto">
+            <div className="section-label mb-2">Latest News</div>
+            <h2 className="font-serif text-[clamp(22px,3vw,36px)] font-black text-green-dark mb-8">
+              Club News &amp; Match Reports
+            </h2>
+
+            {/* Featured article */}
+            <Link
+              href={`/news/${featured.slug}`}
+              className="group no-underline flex flex-col md:flex-row gap-0 rounded-xl overflow-hidden border border-grey-light hover:border-gold hover:shadow-[0_12px_32px_rgba(201,160,48,0.12)] transition-all duration-300 mb-4 bg-white"
+              style={{ borderLeftWidth: "4px", borderLeftColor: CAT_STYLES[featured.cat]?.border }}
+            >
+              <div className="bg-green-deep md:w-[220px] h-[120px] md:h-auto flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+                <span className="text-[52px]">🏏</span>
+                <span className={`absolute top-3 left-3 font-condensed text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded ${CAT_STYLES[featured.cat]?.badge}`}>
+                  {featured.cat}
+                </span>
               </div>
-              <div className="bg-white p-8">
-                <div className="font-condensed text-[11px] text-wello-grey tracking-[0.08em] mb-2">{featured.date}</div>
-                <h3 className="font-serif text-[26px] font-bold text-charcoal mb-3 group-hover:text-green-dark transition-colors">{featured.title}</h3>
-                <p className="text-[14px] text-wello-grey leading-[1.7]">{featured.excerpt}</p>
+              <div className="p-5 md:p-6 flex flex-col justify-center flex-1">
+                <div className="font-condensed text-[10px] text-wello-grey tracking-[0.08em] mb-1">{featured.date}</div>
+                <h3 className="font-serif text-[20px] md:text-[22px] font-bold text-charcoal mb-2 group-hover:text-green-dark transition-colors leading-snug">
+                  {featured.title}
+                </h3>
+                <p className="text-[13px] text-wello-grey leading-[1.65]">{featured.excerpt}</p>
+                <span className="font-condensed text-[10px] font-bold tracking-[0.1em] uppercase text-green-dark group-hover:text-gold transition-colors mt-3">
+                  Read more →
+                </span>
               </div>
             </Link>
-          )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {rest.map(n => (
-              <Link key={n.slug} href={`/news/${n.slug}`}
-                className="group no-underline block bg-white rounded-lg border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.1)] transition-all duration-200 overflow-hidden">
-                <div className="bg-green-dark h-[120px] flex items-center justify-center relative">
-                  <span className="text-[40px]">🏏</span>
-                  <div className="absolute top-3 left-3">
-                    <span className={`font-condensed text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded ${CAT_COLORS[n.cat] || "bg-green-dark text-white"}`}>
-                      {n.cat}
-                    </span>
+            {/* Rest of articles — compact horizontal rows */}
+            <div className="flex flex-col gap-2">
+              {rest.map((n) => (
+                <Link
+                  key={n.slug}
+                  href={`/news/${n.slug}`}
+                  className="group no-underline flex items-center gap-4 bg-white rounded-xl border border-grey-light hover:border-gold hover:shadow-sm transition-all duration-200 px-4 py-3.5 overflow-hidden"
+                  style={{ borderLeftWidth: "3px", borderLeftColor: CAT_STYLES[n.cat]?.border }}
+                >
+                  <div className="flex-shrink-0 hidden sm:flex w-8 h-8 rounded-lg items-center justify-center text-base"
+                    style={{ background: `${CAT_STYLES[n.cat]?.border}20` }}>
+                    <span style={{ fontSize: 16 }}>🏏</span>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="font-condensed text-[10px] text-wello-grey tracking-[0.08em] mb-2">{n.date}</div>
-                  <h3 className="font-serif text-[17px] font-bold text-charcoal mb-2 group-hover:text-green-dark transition-colors leading-snug">{n.title}</h3>
-                  <p className="text-[13px] text-wello-grey leading-[1.6]">{n.excerpt}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </SectionWrapper>
-
-        {/* ── RESOURCES SECTION ── */}
-        <SectionWrapper className="bg-white">
-          <div className="section-label">Club Resources</div>
-          <h2 className="font-serif text-[clamp(26px,3vw,38px)] font-black text-green-dark mb-3">Documents & Links</h2>
-          <p className="text-[15px] text-wello-grey leading-[1.75] mb-12 max-w-2xl">
-            Useful documents, scoring guides, registration links and information for players, coaches and parents.
-          </p>
-
-          <div className="flex flex-col gap-12">
-            {RESOURCES.map((section) => (
-              <div key={section.category}>
-                <div className="flex items-center gap-4 mb-6">
-                  <h3 className="font-condensed text-[13px] font-bold tracking-[0.14em] uppercase text-green-dark">{section.category}</h3>
-                  <div className="flex-1 h-px bg-grey-light" />
-                </div>
-                {'intro' in section && section.intro && (
-                  <div className="bg-green-deep/5 border border-green-dark/20 rounded-lg px-5 py-3 mb-5">
-                    <p className="text-[13px] text-green-dark font-medium">
-                      💡 {section.intro}
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                      <span className={`font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-2 py-0.5 rounded flex-shrink-0 ${CAT_STYLES[n.cat]?.badge}`}>
+                        {n.cat}
+                      </span>
+                      <span className="font-condensed text-[10px] text-wello-grey">{n.date}</span>
+                    </div>
+                    <h3 className="font-condensed text-[13px] font-bold text-charcoal group-hover:text-green-dark transition-colors leading-snug truncate">
+                      {n.title}
+                    </h3>
                   </div>
-                )}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {section.items.map((item) => (
-                    <a key={item.title}
-                      href={item.file}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download={'external' in item ? undefined : true}
-                      className="bg-cream rounded-lg border border-grey-light p-5 no-underline group hover:border-gold hover:shadow-[0_6px_20px_rgba(201,160,48,0.1)] transition-all duration-200 flex gap-4 items-start">
-                      <div className="text-3xl flex-shrink-0 mt-0.5">{item.icon}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <h4 className="font-condensed text-[13px] font-bold text-charcoal group-hover:text-green-dark transition-colors leading-snug">
-                            {item.title}
-                          </h4>
-                          <span className={`font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-1.5 py-0.5 rounded flex-shrink-0 ${
-                            item.type === "PDF" ? "bg-red-100 text-red-700" :
-                            item.type === "FAQ" ? "bg-purple-100 text-purple-700" :
-                            "bg-green-pale text-green-dark"
-                          }`}>{item.type}</span>
-                        </div>
-                        <p className="text-[12px] text-wello-grey leading-[1.55]">{item.desc}</p>
-                        <div className="font-condensed text-[10px] font-bold tracking-[0.1em] uppercase text-green-dark group-hover:text-gold transition-colors mt-2">
-                          {item.type === "PDF" ? "Download →" : "Open →"}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
+                  <span className="font-condensed text-[11px] text-wello-grey group-hover:text-gold transition-colors flex-shrink-0">→</span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </SectionWrapper>
+        </section>
+
+        {/* Resources section */}
+        <section className="py-12 md:py-16 px-4 md:px-12 bg-white">
+          <div className="max-w-[1100px] mx-auto">
+            <div className="section-label mb-2">Club Resources</div>
+            <h2 className="font-serif text-[clamp(22px,3vw,36px)] font-black text-green-dark mb-2">
+              Documents &amp; Links
+            </h2>
+            <p className="text-[14px] text-wello-grey leading-[1.7] mb-8 max-w-xl">
+              Scoring guides, registration links and documents for players, coaches and parents.
+              Click a section to expand.
+            </p>
+            <div className="flex flex-col gap-3">
+              {RESOURCES.map((section) => (
+                <ResourceAccordion key={section.category} section={section} />
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
     </>

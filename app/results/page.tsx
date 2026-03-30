@@ -1,19 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import { createClient } from "@sanity/client";
-
-const client = createClient({
-  projectId: "imm53v2s",
-  dataset: "production",
-  apiVersion: "2024-01-01",
-  useCdn: true,
-});
-
 const PLAYHQ_CLUB = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2";
 
 const hubCompetitions = [
@@ -79,17 +70,25 @@ function StatCard({ target, suffix = "", label, delay }: { target: number; suffi
 }
 
 export default function ResultsPage() {
-  const [matches, setMatches] = useState<MatchEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(false);
 
-  useEffect(() => {
-    client.fetch(
-      `*[_type == "result" && season == "2025/26" && competition in ["QSDCA","BEARS"]] | order(matchDate desc) {
-        _id, isUpcoming, competition, grade, opponent, matchDate, venue, round, result
-      }`
-    ).then((data) => { setMatches(data); setLoading(false); })
-    .catch(() => setLoading(false));
-  }, []);
+  // Sample results — replace with Sanity fetch once committee starts entering data
+  const matches: MatchEntry[] = [
+    { _id:"1",  isUpcoming:false, competition:"QSDCA", grade:"1st Grade",  opponent:"Redlands CC",  matchDate:"2026-03-21", result:"W" },
+    { _id:"2",  isUpcoming:false, competition:"QSDCA", grade:"1st Grade",  opponent:"Capalaba CC",  matchDate:"2026-03-14", result:"W" },
+    { _id:"3",  isUpcoming:false, competition:"QSDCA", grade:"1st Grade",  opponent:"Wynnum CC",    matchDate:"2026-03-07", result:"L" },
+    { _id:"4",  isUpcoming:false, competition:"QSDCA", grade:"1st Grade",  opponent:"Easts CC",     matchDate:"2026-02-28", result:"W" },
+    { _id:"5",  isUpcoming:false, competition:"QSDCA", grade:"1st Grade",  opponent:"Bayside CC",   matchDate:"2026-02-21", result:"W" },
+    { _id:"6",  isUpcoming:false, competition:"QSDCA", grade:"2nd Grade",  opponent:"Redlands CC",  matchDate:"2026-03-21", result:"W" },
+    { _id:"7",  isUpcoming:false, competition:"QSDCA", grade:"2nd Grade",  opponent:"Capalaba CC",  matchDate:"2026-03-14", result:"L" },
+    { _id:"8",  isUpcoming:false, competition:"QSDCA", grade:"2nd Grade",  opponent:"Wynnum CC",    matchDate:"2026-03-07", result:"W" },
+    { _id:"9",  isUpcoming:false, competition:"QSDCA", grade:"2nd Grade",  opponent:"Easts CC",     matchDate:"2026-02-28", result:"W" },
+    { _id:"10", isUpcoming:false, competition:"BEARS", grade:"BEARS U17",  opponent:"Wynnum CC",    matchDate:"2026-03-22", result:"W" },
+    { _id:"11", isUpcoming:false, competition:"BEARS", grade:"BEARS U17",  opponent:"Capalaba CC",  matchDate:"2026-03-15", result:"L" },
+    { _id:"12", isUpcoming:false, competition:"BEARS", grade:"BEARS U17",  opponent:"Redlands CC",  matchDate:"2026-03-08", result:"W" },
+    { _id:"13", isUpcoming:true,  competition:"QSDCA", grade:"1st Grade",  opponent:"Bayside CC",   matchDate:"2026-04-05", venue:"16 Ivy Street, Thorneside", round:"Round 16" },
+    { _id:"14", isUpcoming:true,  competition:"BEARS", grade:"BEARS U17",  opponent:"Victoria Point CC", matchDate:"2026-04-05", venue:"Victoria Point Oval", round:"Round 14" },
+  ];
 
   const completed = matches.filter((m) => !m.isUpcoming);
   const upcoming = matches.filter((m) => m.isUpcoming).sort((a, b) => a.matchDate.localeCompare(b.matchDate));
