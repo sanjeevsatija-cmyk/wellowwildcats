@@ -50,7 +50,7 @@ export default function SponsorsGrid() {
         <div>
           <div className="section-label">Our Partners</div>
           <h2 className="font-serif text-[clamp(22px,3vw,36px)] font-black text-green-dark leading-tight">
-            These legends back us 🏏
+            These legends back us
           </h2>
         </div>
         <a
