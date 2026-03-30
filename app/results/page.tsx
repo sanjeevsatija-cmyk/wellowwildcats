@@ -27,27 +27,6 @@ const hubCompetitions = [
   { association: "Community Cricket Championships", name: "Senior Competition (Community)", seasons: ["Summer 2025/26"], url: "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/senior-competition-summer-202526/c8eda977/teams", borderColor: "#C9A030" },
 ];
 
-function useCountUp(target: number, duration = 900, suffix = "") {
-  const [val, setVal] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (started.current || target === 0) return;
-    started.current = true;
-    const start = Date.now();
-    const tick = () => {
-      const p = Math.min((Date.now() - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      setVal(Math.round(ease * target));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    const t = setTimeout(() => requestAnimationFrame(tick), 400);
-    return () => clearTimeout(t);
-  }, [target, duration]);
-
-  return val + suffix;
-}
-
 interface MatchEntry {
   _id: string;
   isUpcoming: boolean;
@@ -67,35 +46,66 @@ function formatDate(dateStr: string) {
   return d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" });
 }
 
+function useCountUp(target: number, delay = 300) {
+  const [val, setVal] = useState(0);
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    const t = setTimeout(() => {
+      const start = Date.now();
+      const duration = 900;
+      const tick = () => {
+        const p = Math.min((Date.now() - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        setVal(Math.round(ease * target));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, delay);
+    return () => clearTimeout(t);
+  }, [target, delay]);
+  return val;
+}
+
+function StatCard({ target, suffix, label, delay }: { target: number; suffix?: string; label: string; delay: number }) {
+  const val = useCountUp(target, delay);
+  return (
+    <div className="bg-green-deep rounded-xl p-4 md:p-6 text-center">
+      <div className="font-serif text-[32px] md:text-[44px] font-black text-gold leading-none mb-1">
+        {val}{suffix}
+      </div>
+      <div className="font-condensed text-[9px] md:text-[10px] font-bold tracking-[0.1em] uppercase text-white/45">{label}</div>
+    </div>
+  );
+}
+
 export default function ResultsPage() {
   const [matches, setMatches] = useState<MatchEntry[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     client.fetch(
       `*[_type == "result" && season == "2025/26" && competition in ["QSDCA","BEARS"]] | order(matchDate desc) {
         _id, isUpcoming, competition, grade, opponent, matchDate, venue, round, ourScore, theirScore, result
       }`
-    ).then(setMatches).catch(() => {});
+    ).then((data) => { setMatches(data); setLoading(false); })
+    .catch(() => setLoading(false));
   }, []);
 
   const completed = matches.filter((m) => !m.isUpcoming);
   const upcoming = matches.filter((m) => m.isUpcoming).sort((a, b) => a.matchDate.localeCompare(b.matchDate));
 
-  // Calculate stats
   const wins = completed.filter((m) => m.result === "W").length;
   const played = completed.length;
   const winRate = played > 0 ? Math.round((wins / played) * 100) : 0;
 
-  // Group by grade for pill display
+  // Group completed by grade
   const byGrade: Record<string, MatchEntry[]> = {};
   for (const m of completed) {
     if (!byGrade[m.grade]) byGrade[m.grade] = [];
     byGrade[m.grade].push(m);
   }
-
-  const playedDisplay = useCountUp(played, 900);
-  const winsDisplay = useCountUp(wins, 900);
-  const winRateDisplay = useCountUp(winRate, 900, "%");
 
   return (
     <>
@@ -112,7 +122,9 @@ export default function ResultsPage() {
               <span className="live-dot" />
               <span className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold">Live · Season 2025/26</span>
             </div>
-            <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">Results &amp; Fixtures</h1>
+            <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">
+              Results &amp; Fixtures
+            </h1>
           </div>
         </div>
 
@@ -120,35 +132,36 @@ export default function ResultsPage() {
           <div className="max-w-[1100px] mx-auto">
 
             {/* Season at a glance */}
-            {played > 0 && (
+            {!loading && played > 0 && (
               <div className="mb-10">
-                <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold mb-4">Season at a glance</p>
+                <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold mb-4">
+                  Season at a glance
+                </p>
                 <div className="grid grid-cols-3 gap-3 md:gap-4">
-                  {[
-                    { val: playedDisplay, label: "Matches Played" },
-                    { val: winsDisplay, label: "Wins" },
-                    { val: winRateDisplay, label: "Win Rate" },
-                  ].map((s) => (
-                    <div key={s.label} className="bg-green-deep rounded-xl p-4 md:p-6 text-center">
-                      <div className="font-serif text-[32px] md:text-[44px] font-black text-gold leading-none mb-1">{s.val}</div>
-                      <div className="font-condensed text-[9px] md:text-[10px] font-bold tracking-[0.1em] uppercase text-white/45">{s.label}</div>
-                    </div>
-                  ))}
+                  <StatCard target={played} label="Matches Played" delay={300} />
+                  <StatCard target={wins} label="Wins" delay={450} />
+                  <StatCard target={winRate} suffix="%" label="Win Rate" delay={600} />
                 </div>
               </div>
             )}
 
             {/* By grade — pill badges */}
-            {Object.keys(byGrade).length > 0 && (
+            {!loading && Object.keys(byGrade).length > 0 && (
               <div className="mb-10">
-                <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold mb-4">By grade</p>
+                <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold mb-4">
+                  By grade
+                </p>
                 <div className="flex flex-col gap-3">
                   {Object.entries(byGrade).map(([grade, gradeMatches]) => {
                     const gWins = gradeMatches.filter((m) => m.result === "W").length;
                     const gLosses = gradeMatches.filter((m) => m.result === "L").length;
                     return (
-                      <div key={grade} className="bg-white rounded-xl border border-grey-light overflow-hidden" style={{ borderLeftWidth: "3px", borderLeftColor: "#2A6B2A" }}>
-                        <div className="px-4 md:px-5 pt-3.5 pb-1 flex items-center justify-between">
+                      <div
+                        key={grade}
+                        className="bg-white rounded-xl border border-grey-light overflow-hidden"
+                        style={{ borderLeftWidth: "3px", borderLeftColor: "#2A6B2A" }}
+                      >
+                        <div className="px-4 md:px-5 pt-3.5 pb-1 flex items-center justify-between flex-wrap gap-2">
                           <span className="font-condensed text-[12px] font-bold text-green-dark">{grade}</span>
                           <span className="font-condensed text-[11px] text-wello-grey">
                             <span className="text-emerald-600 font-bold">{gWins}W</span>
@@ -162,13 +175,13 @@ export default function ResultsPage() {
                             <div
                               key={m._id}
                               title={`vs ${m.opponent} — ${formatDate(m.matchDate)}`}
-                              className={`w-6 h-6 rounded-[4px] flex items-center justify-center font-condensed text-[10px] font-bold ${
+                              className={`w-6 h-6 rounded-[4px] flex items-center justify-center font-condensed text-[10px] font-bold cursor-default ${
                                 m.result === "W" ? "bg-emerald-50 text-emerald-700" :
                                 m.result === "L" ? "bg-red-50 text-red-600" :
                                 "bg-gray-100 text-gray-400"
                               }`}
                             >
-                              {m.result === "NR" || m.result === "A" ? "–" : m.result}
+                              {m.result === "NR" || m.result === "A" ? "–" : m.result ?? "–"}
                             </div>
                           ))}
                         </div>
@@ -180,27 +193,41 @@ export default function ResultsPage() {
             )}
 
             {/* Upcoming fixtures */}
-            {upcoming.length > 0 && (
+            {!loading && upcoming.length > 0 && (
               <div className="mb-10">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="live-dot" />
-                  <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold">This Weekend</p>
+                  <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold">
+                    This Weekend
+                  </p>
                 </div>
                 <div className="flex flex-col gap-3">
                   {upcoming.map((m) => (
-                    <div key={m._id} className="bg-white rounded-xl border border-grey-light overflow-hidden flex items-center gap-3 px-4 py-3 md:px-5 md:py-4" style={{ borderLeftWidth: "3px", borderLeftColor: "#C9A030" }}>
+                    <div
+                      key={m._id}
+                      className="bg-white rounded-xl border border-grey-light flex items-center gap-3 px-4 py-3 md:px-5 md:py-4"
+                      style={{ borderLeftWidth: "3px", borderLeftColor: "#C9A030" }}
+                    >
                       <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-center flex-shrink-0">
-                        <p className="font-condensed text-[10px] font-bold text-amber-700 leading-tight">{formatDate(m.matchDate)}</p>
+                        <p className="font-condensed text-[10px] font-bold text-amber-700 leading-tight whitespace-nowrap">
+                          {formatDate(m.matchDate)}
+                        </p>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-condensed text-[9px] font-bold tracking-[0.1em] uppercase text-wello-grey mb-0.5">
-                          {m.grade} {m.round ? `· ${m.round}` : ""}
+                          {m.grade}{m.round ? ` · ${m.round}` : ""}
                         </p>
                         <p className="font-serif text-[15px] font-bold text-green-dark">vs {m.opponent}</p>
-                        {m.venue && <p className="font-condensed text-[10px] text-wello-grey mt-0.5">📍 {m.venue}</p>}
+                        {m.venue && (
+                          <p className="font-condensed text-[10px] text-wello-grey mt-0.5">📍 {m.venue}</p>
+                        )}
                       </div>
-                      <a href={PLAYHQ_CLUB} target="_blank" rel="noopener noreferrer"
-                        className="flex-shrink-0 bg-green-deep text-gold font-condensed text-[10px] font-bold tracking-[0.06em] rounded-lg px-3 py-2 hover:bg-green-mid transition-colors">
+                      <a
+                        href={PLAYHQ_CLUB}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-shrink-0 bg-green-deep text-gold font-condensed text-[10px] font-bold tracking-[0.06em] rounded-lg px-3 py-2 hover:bg-green-mid transition-colors no-underline"
+                      >
                         PlayHQ →
                       </a>
                     </div>
@@ -209,11 +236,15 @@ export default function ResultsPage() {
               </div>
             )}
 
-            {/* Empty state */}
-            {matches.length === 0 && (
+            {/* Empty state — no data yet */}
+            {!loading && matches.length === 0 && (
               <div className="mb-10 rounded-xl border border-grey-light bg-white px-6 py-10 text-center">
-                <p className="font-condensed text-[11px] font-bold tracking-[0.15em] uppercase text-wello-grey mb-2">No data yet</p>
-                <p className="text-[14px] text-wello-grey">Results and fixtures will appear here once entered via the club CMS.</p>
+                <p className="font-condensed text-[11px] font-bold tracking-[0.15em] uppercase text-wello-grey mb-2">
+                  No data yet
+                </p>
+                <p className="text-[14px] text-wello-grey">
+                  Results and fixtures will appear here once entered via the club CMS.
+                </p>
               </div>
             )}
 
@@ -221,7 +252,9 @@ export default function ResultsPage() {
             <div className="border-t-2 border-gold/20 pt-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px flex-1 bg-grey-light" />
-                <span className="font-condensed text-[10px] font-bold tracking-[0.2em] uppercase text-gold">All Competitions on PlayHQ</span>
+                <span className="font-condensed text-[10px] font-bold tracking-[0.2em] uppercase text-gold">
+                  All Competitions on PlayHQ
+                </span>
                 <div className="h-px flex-1 bg-grey-light" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -231,24 +264,35 @@ export default function ResultsPage() {
                     href={comp.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white rounded-xl border border-grey-light overflow-hidden flex items-center justify-between px-4 py-3 hover:border-gold hover:shadow-sm transition-all no-underline"
+                    className="bg-white rounded-xl border border-grey-light flex items-center justify-between px-4 py-3 hover:border-gold hover:shadow-sm transition-all no-underline"
                     style={{ borderLeftWidth: "3px", borderLeftColor: comp.borderColor }}
                   >
-                    <div className="min-w-0">
-                      <p className="font-condensed text-[9px] font-bold tracking-[0.12em] uppercase text-wello-grey mb-0.5">{comp.association}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-condensed text-[9px] font-bold tracking-[0.12em] uppercase text-wello-grey mb-0.5">
+                        {comp.association}
+                      </p>
                       <p className="font-condensed text-[12px] font-bold text-green-dark truncate">{comp.name}</p>
                       <div className="flex gap-1.5 mt-1 flex-wrap">
                         {comp.seasons.map((s) => (
-                          <span key={s} className="font-condensed text-[9px] bg-cream border border-grey-light rounded-full px-2 py-0.5 text-wello-grey">{s}</span>
+                          <span key={s} className="font-condensed text-[9px] bg-cream border border-grey-light rounded-full px-2 py-0.5 text-wello-grey">
+                            {s}
+                          </span>
                         ))}
                       </div>
                     </div>
-                    <span className="flex-shrink-0 ml-3 font-condensed text-[10px] font-bold text-gold bg-green-deep rounded-lg px-3 py-1.5">View →</span>
+                    <span className="flex-shrink-0 ml-3 font-condensed text-[10px] font-bold text-gold bg-green-deep rounded-lg px-3 py-1.5">
+                      View →
+                    </span>
                   </a>
                 ))}
               </div>
               <p className="text-center text-[12px] text-wello-grey mt-6">
-                <a href={PLAYHQ_CLUB} target="_blank" rel="noopener noreferrer" className="font-semibold text-green-dark hover:text-gold no-underline">
+                <a
+                  href={PLAYHQ_CLUB}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-green-dark hover:text-gold no-underline"
+                >
                   View full club page on PlayHQ →
                 </a>
               </p>

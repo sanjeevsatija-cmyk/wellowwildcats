@@ -112,7 +112,7 @@ const competitions = [
 const REG_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
 
 export default function TeamsPage() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [openKey, setOpenKey] = useState<string | null>(null);
 
   return (
     <>
@@ -142,8 +142,8 @@ export default function TeamsPage() {
 
         <SectionWrapper className="bg-cream">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {competitions.map((comp, i) => {
-              const isOpen = openIdx === i;
+            {competitions.map((comp) => {
+              const isOpen = openKey === comp.name;
               return (
                 <div
                   key={`${comp.association}-${comp.name}`}
@@ -152,7 +152,7 @@ export default function TeamsPage() {
                 >
                   {/* Header */}
                   <button
-                    onClick={() => setOpenIdx(isOpen ? null : i)}
+                    onClick={() => setOpenKey(isOpen ? null : comp.name)}
                     className="w-full text-left px-5 md:px-7 py-4 md:py-5 flex items-center gap-4"
                   >
                     <div className="flex-1 min-w-0">
