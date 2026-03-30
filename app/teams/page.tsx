@@ -141,7 +141,7 @@ export default function TeamsPage() {
         </div>
 
         <SectionWrapper className="bg-cream">
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {competitions.map((comp, i) => {
               const isOpen = openIdx === i;
               return (
