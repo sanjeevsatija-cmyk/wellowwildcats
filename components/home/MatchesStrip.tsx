@@ -63,7 +63,7 @@ export default function MatchesStrip() {
         <div className="absolute left-0 top-0 bottom-0 z-10 flex items-center pl-4 md:pl-6 pr-4 pointer-events-none"
           style={{ background: "linear-gradient(to right, #C9A030 70%, transparent)" }}>
           <div className="flex items-center gap-2">
-            <Image src="/bat-ball.png" alt="Cricket bat and ball" width={28} height={28} className="object-contain flex-shrink-0" />
+            <Image src="/bat-ball.png" alt="Cricket bat and ball" width={28} height={28} className="object-contain flex-shrink-0" style={{ mixBlendMode: "multiply" }} />
             <span className="font-condensed text-[11px] md:text-[12px] font-extrabold tracking-[0.14em] uppercase text-green-deep whitespace-nowrap">
               Upcoming Games
             </span>
