@@ -48,9 +48,29 @@ The Masters XI provides an excellent pathway for players aged 35 and over who wi
 All QSDCA matches are played on turf wickets, which is a hallmark of the competition and a major draw for senior players in the region. The season commences on the third weekend of September and concludes with the grand final in early March, giving players a full and rewarding summer of cricket at 16 Ivy Street, Thorneside.`,
     features:["QSDCA Saturday afternoon competition","1st Grade, 2nd Grade and 3rd Grade","Masters XI for players aged 35 and over","All matches played on turf wickets","Season: September to March","Grand final held in early March","Home games at 16 Ivy Street, Thorneside","Strong social and competitive culture"],
   },
+  "girls-cricket": {
+    num:"06", icon:"👧", tag:"Girls · All Ages", name:"Girls Cricket", season:"Summer",
+    detail:`Girls Cricket at Wello Wildcats is a dedicated program designed to give female players of all ages and abilities a safe, supportive and fun environment to learn, grow and compete in cricket.
+
+Whether your daughter has never held a bat before, or she is an experienced cricketer looking for a competitive edge, there is a place for her at the Wello Wildcats. Our girls program is built on three foundations: skill development, teamwork and empowerment.
+
+The program is affiliated with the Eastern Districts Junior Cricket Association (EDJCA) Girls Only Junior Sunday Competition, giving players the opportunity to compete against other clubs in a girls-only environment. A Winter 2026 season is also upcoming, meaning girls can play year-round.
+
+We are proud to be part of growing the game for women and girls in the Redlands. Cricket Australia's focus on female participation has never been stronger, and Wello Wildcats is committed to being part of that movement at the grassroots level.`,
+    features:[
+      "Open to girls of all ages — complete beginners welcome",
+      "Supportive, inclusive and fun environment",
+      "EDJCA Girls Only Junior Sunday Competition",
+      "Winter 2026 season upcoming — play year-round",
+      "Skill development, teamwork and empowerment",
+      "Pathway into senior women's cricket",
+      "Affiliated with Cricket Australia's female participation programs",
+      "All equipment provided for first-timers",
+    ],
+  },
   "warehouse-cricket": {
     num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket", season:"Winter",
-    detail:`Warehouse Cricket is Wello Wildcats' Winter 2026 cricket program, offering competitive cricket across both junior and senior formats when the summer season concludes. It is the perfect way to stay active, maintain your skills and stay connected with your teammates throughout the winter months.
+    detail:`Warehouse Cricket is Wello Wildcats' Winter 2026 indoor cricket program, offering competitive cricket across both junior and senior formats when the summer season concludes. It is the perfect way to stay active, maintain your skills and stay connected with your teammates throughout the winter months.
 
 Junior competitions cater for players aged U/12 through to U/16, with age groups typically separated by year level. U/13 and U/14 age groups are further divided into Divisions based on skill level. Junior competitions are held every Saturday.
 

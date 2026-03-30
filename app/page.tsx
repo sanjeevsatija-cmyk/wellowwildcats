@@ -4,6 +4,7 @@ import Footer        from "@/components/layout/Footer";
 import Hero          from "@/components/home/Hero";
 import MatchesStrip  from "@/components/home/MatchesStrip";
 import ProgramsGrid  from "@/components/home/ProgramsGrid";
+import PhotoMosaic   from "@/components/home/PhotoMosaic";
 import SponsorsGrid  from "@/components/home/SponsorsGrid";
 import JoinCTA       from "@/components/home/JoinCTA";
 import type { Metadata } from "next";
@@ -25,6 +26,7 @@ export default function HomePage() {
         <Hero />
         <MatchesStrip />
         <ProgramsGrid />
+        <PhotoMosaic />
         <SponsorsGrid />
         <JoinCTA />
       </main>

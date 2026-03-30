@@ -36,6 +36,13 @@ const PROGRAMS = [
     season:"Summer",
   },
   {
+    slug:"girls-cricket", num:"06", icon:"👧", tag:"Girls · All Ages", name:"Girls Cricket",
+    color:"bg-green-dark",
+    short:"A dedicated program for girls to participate, develop and thrive in cricket at all skill levels.",
+    features:["Open to girls of all ages and skill levels","Supportive and inclusive environment","Skill development, teamwork and empowerment","Linked to EDJCA Girls Only Sunday Competition","Pathway into senior women\'s cricket","Beginners through to experienced players welcome"],
+    season:"Summer",
+  },
+  {
     slug:"senior-cricket", num:"04", icon:"🏆", tag:"Adults & Masters (35+)", name:"Senior Cricket",
     color:"bg-green-dark",
     short:"QSDCA Saturday turf competition across multiple grades including a Masters XI.",
@@ -45,7 +52,7 @@ const PROGRAMS = [
   {
     slug:"warehouse-cricket", num:"05", icon:"🏢", tag:"U/12–U/16 · Adults", name:"Warehouse Cricket",
     color:"bg-green-dark",
-    short:"Winter 2026 cricket — junior and senior competitions every Saturday, with senior-only Sunday competitions fortnightly.",
+    short:"Indoor cricket for Winter 2026 — junior and senior competitions every Saturday, with senior-only Sunday competitions fortnightly.",
     features:["Junior & Senior Saturday competitions","Sunday Senior grades (fortnightly)","U/12–U/16 junior age groups","50 Over & T20 formats (Sundays)","Fixture: 2 May – Mid August + finals","Grand Final: 29–30 August"],
     season:"Winter",
   },
