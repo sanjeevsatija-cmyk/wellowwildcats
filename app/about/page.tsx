@@ -3,6 +3,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/shared/PageHero";
 import SectionWrapper from "@/components/shared/SectionWrapper";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -88,9 +89,13 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-          <div className="mt-8 md:mt-12 rounded-lg overflow-hidden border border-grey-light">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.2!2d153.217!3d-27.503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDMwJzEwLjgiUyAxNTLCsDEzJzAxLjIiRQ!5e0!3m2!1sen!2sau!4v1234567890"
-              width="100%" height="280" style={{ border:0 }} allowFullScreen loading="lazy" title="16 Ivy Street Thorneside" />
+          <div className="mt-8 md:mt-12 rounded-lg overflow-hidden border border-grey-light relative h-[280px]">
+            <Image
+              src="/Pitch1.jpg"
+              alt="Mooroondu Oval — 16 Ivy Street, Thorneside"
+              fill
+              className="object-cover object-center"
+            />
           </div>
           <p className="text-center font-condensed text-[11px] text-wello-grey tracking-[0.08em] uppercase mt-3">
             📍 16 Ivy Street, Thorneside QLD 4158

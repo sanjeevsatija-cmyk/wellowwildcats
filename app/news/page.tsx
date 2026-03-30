@@ -50,7 +50,7 @@ const RESOURCES = [
     items: [
       { title:"Register to Play", desc:"Register for all Wello Wildcats programs through Cricket Australia's official PlayHQ platform.", file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register", type:"Link", icon:"🏏", external:true },
       { title:"Club Page on PlayHQ", desc:"View all teams, fixtures, ladders, results and player statistics on the official Wello Wildcats PlayHQ page.", file:"https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2", type:"Link", icon:"📊", external:true },
-      { title:"Cricket Australia Safeguarding Kids", desc:"Cricket Australia's policies and codes for safeguarding children and young people in cricket.", file:"https://www.cricketaustralia.com.au/about/safeguarding/safeguarding-kids", type:"Link", icon:"🛡️", external:true },
+      { title:"Cricket Australia Safeguarding Kids", desc:"Cricket Australia's policies and codes for safeguarding children and young people in cricket.", file:"https://www.cricket.com.au/integrity/safeguarding-children", type:"Link", icon:"🛡️", external:true },
     ],
   },
 ];
