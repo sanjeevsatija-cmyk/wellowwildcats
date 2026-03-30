@@ -195,7 +195,7 @@ export default function TeamsPage() {
             alt="Wello Wildcats — Season 2025/26"
             fill
             sizes="100vw"
-            className="object-cover object-bottom"
+            className="object-cover object-center"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-green-deep/70 via-green-deep/20 to-transparent" />
