@@ -141,7 +141,7 @@ export default function TeamsPage() {
         </div>
 
         <SectionWrapper className="bg-cream">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:items-start">
             {competitions.map((comp) => {
               const isOpen = openKey === comp.name;
               return (
