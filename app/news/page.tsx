@@ -208,8 +208,8 @@ function ResourceSection({ section }: { section: typeof RESOURCES[0] }) {
               <p className="text-[12px] text-green-dark">💡 {(section as any).intro}</p>
             </div>
           )}
-          {/* Icon grid */}
-          <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+          {/* Portrait cards grid */}
+          <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {section.items.map((item) => (
               <a
                 key={item.title}
@@ -217,15 +217,33 @@ function ResourceSection({ section }: { section: typeof RESOURCES[0] }) {
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 download={!item.external ? true : undefined}
-                className="group flex flex-col items-center gap-2 p-3 rounded-lg border border-grey-light bg-cream hover:border-gold hover:bg-white transition-all duration-200 no-underline text-center"
+                className="group rounded-xl overflow-hidden border border-grey-light bg-white no-underline hover:border-gold hover:shadow-sm transition-all flex flex-col"
               >
-                <span className="text-2xl">{item.icon}</span>
-                <span className="font-condensed text-[10px] font-bold text-charcoal group-hover:text-green-dark transition-colors leading-tight line-clamp-2">
-                  {item.title}
-                </span>
-                <span className={`font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-1.5 py-0.5 rounded ${typeBadge(item.type)}`}>
-                  {item.type}
-                </span>
+                {/* Coloured header with watermark */}
+                <div
+                  className="relative px-3 py-3 overflow-hidden flex flex-col justify-between"
+                  style={{
+                    background: item.type === "PDF" ? "#7a1a1a" : item.type === "FAQ" ? "#4c1d95" : item.type === "Guide" ? "#142E14" : "#7a5e0a",
+                    minHeight: 70,
+                  }}
+                >
+                  <span className="absolute bottom-0 left-2 font-serif font-black leading-none select-none pointer-events-none" style={{ fontSize: 28, color: "rgba(255,255,255,0.08)", whiteSpace: "nowrap", overflow: "hidden", maxWidth: "100%" }}>
+                    {item.title.split(" ").slice(0,2).join(" ")}
+                  </span>
+                  <span className="relative z-10 text-xl self-start">{item.icon}</span>
+                  <span className={`relative z-10 self-start font-condensed text-[8px] font-bold tracking-[0.1em] uppercase px-1.5 py-0.5 rounded mt-1 ${typeBadge(item.type)}`}>
+                    {item.type}
+                  </span>
+                </div>
+                {/* White body */}
+                <div className="px-3 py-2.5 flex flex-col flex-1">
+                  <span className="font-condensed text-[10px] font-bold text-charcoal group-hover:text-green-dark transition-colors leading-tight mb-auto">
+                    {item.title}
+                  </span>
+                  <span className="font-condensed text-[9px] font-bold tracking-[0.08em] uppercase text-wello-grey group-hover:text-gold transition-colors mt-2">
+                    {item.type === "PDF" ? "Download →" : "Open →"}
+                  </span>
+                </div>
               </a>
             ))}
           </div>
