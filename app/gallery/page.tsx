@@ -1,78 +1,207 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import PageHero from "@/components/shared/PageHero";
-import SectionWrapper from "@/components/shared/SectionWrapper";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Photo Gallery" };
-
-const ALBUMS = [
-  { title:"Match Day — Home Ground", season:"2025/26", count:24, emoji:"🏟️" },
-  { title:"Cricket Blast 2025",       season:"2025/26", count:18, emoji:"⚾" },
-  { title:"1sts vs Valley CC",        season:"2025/26", count:12, emoji:"🏏" },
-  { title:"Presentation Night 2024",  season:"2024/25", count:34, emoji:"🏆" },
-  { title:"Training — Practice Nets", season:"2025/26", count:15, emoji:"🌅" },
-  { title:"Junior Presentation 2024", season:"2024/25", count:28, emoji:"⭐" },
+const PHOTOS = [
+  { src:"/Results.jpg",          alt:"Wildcats celebrating a win",            cat:"Match Day" },
+  { src:"/Team1.jpg",             alt:"Wildcats junior team",                  cat:"Juniors"   },
+  { src:"/Seniors.jpg",           alt:"Seniors walking off after a win",       cat:"Match Day" },
+  { src:"/Ground1.jpg",           alt:"Match day at Mooroondu Oval",           cat:"Match Day" },
+  { src:"/Girl_Power.jpg",        alt:"Girls cricket Pink Stumps Day",         cat:"Girls"     },
+  { src:"/Junior.jpg",            alt:"Junior team group photo",               cat:"Juniors"   },
+  { src:"/young_programs.jpg",    alt:"Junior training session",               cat:"Training"  },
+  { src:"/Trebles.jpg",           alt:"RCI Trebles team",                      cat:"Juniors"   },
+  { src:"/Pitch1.jpg",            alt:"Pitch preparation at Mooroondu Oval",   cat:"Match Day" },
+  { src:"/young_programs01.jpg",  alt:"Junior cricketer batting at stumps",    cat:"Juniors"   },
+  { src:"/Warehouse.jpg",         alt:"Warehouse cricket team",                cat:"Match Day" },
+  { src:"/Events.jpg",            alt:"Club presentation evening",             cat:"Events"    },
+  { src:"/gallery_hero.jpg",      alt:"Junior match day action",               cat:"Match Day" },
+  // Duplicates to fill grid — replace with real photos when available
+  { src:"/Team1.jpg",             alt:"Wildcats team spirit",                  cat:"Juniors"   },
+  { src:"/Results.jpg",           alt:"Match day celebrations",                cat:"Match Day" },
+  { src:"/Girl_Power.jpg",        alt:"Girls cricket team",                    cat:"Girls"     },
+  { src:"/young_programs.jpg",    alt:"Kids at training",                      cat:"Training"  },
+  { src:"/Seniors.jpg",           alt:"Senior players on the field",           cat:"Match Day" },
 ];
 
+const FILTERS = ["All", "Match Day", "Juniors", "Girls", "Events", "Training"];
+
 export default function GalleryPage() {
+  const [active, setActive] = useState("All");
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const filtered = active === "All" ? PHOTOS : PHOTOS.filter((p) => p.cat === active);
+
+  const prev = () => setLightbox((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
+  const next = () => setLightbox((i) => (i !== null ? (i + 1) % filtered.length : null));
+
   return (
     <>
       <Topbar />
       <Nav />
       <main>
-        <PageHero label="Season Highlights" title="Photo Gallery"
-          subtitle="Match day moments, presentations, training and celebrations from across the seasons." />
 
-        <SectionWrapper className="bg-green-deep">
-          <div className="flex gap-2 mb-8 flex-wrap">
-            {["All Seasons","2025/26","2024/25"].map((s) => (
-              <button key={s} className={`font-condensed text-xs font-bold tracking-[0.1em] uppercase px-3.5 py-2 rounded border transition-all duration-200 ${
-                s==="All Seasons" ? "bg-gold text-green-deep border-gold" : "bg-transparent text-white/60 border-white/20 hover:border-gold hover:text-gold"
-              }`}>{s}</button>
-            ))}
+        {/* Hero */}
+        <div className="relative w-full h-[260px] md:h-[360px] overflow-hidden">
+          <Image src="/gallery_hero.jpg" alt="Wello Wildcats match day" fill sizes="100vw" className="object-cover object-center" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-green-deep/80 via-green-deep/30 to-transparent" />
+          <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14">
+            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-2">Season 2025/26</span>
+            <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">Photo Gallery</h1>
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-            {ALBUMS.map((album) => (
-              <div key={album.title} className="rounded-lg overflow-hidden cursor-pointer group border border-white/10 hover:border-gold transition-all duration-300">
-                <div className="relative h-[130px] md:h-[200px] flex items-center justify-center overflow-hidden"
-                  style={{ background:"linear-gradient(135deg,#1D4A1D,#142E14)" }}>
-                  <span className="text-[40px] md:text-[56px] relative z-10 group-hover:scale-110 transition-transform duration-300">{album.emoji}</span>
-                  <div className="absolute inset-0 bg-gold/20 border-2 border-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center">
-                    <span className="font-condensed text-[11px] font-bold tracking-[0.1em] uppercase text-white bg-green-deep/80 px-3 py-1.5 rounded">View Album</span>
+        {/* Filter pills */}
+        <section className="bg-cream px-4 md:px-12 pt-10 pb-2">
+          <div className="max-w-[1100px] mx-auto">
+            <div className="flex flex-wrap gap-2">
+              {FILTERS.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setActive(f)}
+                  className={`font-condensed text-[11px] font-bold tracking-[0.1em] uppercase px-4 py-2 rounded-full border transition-all duration-200 ${
+                    active === f
+                      ? "bg-green-deep text-gold border-green-deep"
+                      : "bg-white text-wello-grey border-grey-light hover:border-gold hover:text-green-dark"
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+              <span className="font-condensed text-[11px] text-wello-grey self-center ml-2">
+                {filtered.length} photos
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* Masonry grid */}
+        <section className="bg-cream px-4 md:px-12 py-8">
+          <div className="max-w-[1100px] mx-auto">
+            <div
+              style={{
+                columns: "3",
+                columnGap: "12px",
+              }}
+              className="[column-count:2] md:[column-count:3]"
+            >
+              {filtered.map((photo, i) => (
+                <div
+                  key={`${photo.src}-${i}`}
+                  className="break-inside-avoid mb-3 overflow-hidden rounded-lg cursor-pointer group relative"
+                  onClick={() => setLightbox(i)}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={600}
+                    height={400}
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ display: "block" }}
+                  />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-green-deep/0 group-hover:bg-green-deep/40 transition-all duration-300 flex items-end p-3">
+                    <span className={`font-condensed text-[9px] font-bold tracking-[0.1em] uppercase px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      photo.cat === "Girls"    ? "bg-blue-600 text-white"    :
+                      photo.cat === "Events"   ? "bg-purple-600 text-white"  :
+                      photo.cat === "Training" ? "bg-amber-500 text-white"   :
+                      photo.cat === "Juniors"  ? "bg-green-600 text-white"   :
+                      "bg-gold text-green-deep"
+                    }`}>
+                      {photo.cat}
+                    </span>
                   </div>
                 </div>
-                <div className="bg-green-dark px-4 py-3">
-                  <h3 className="font-condensed text-[12px] md:text-[14px] font-bold text-white leading-snug">{album.title}</h3>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="font-condensed text-[9px] text-gold tracking-[0.1em] uppercase">{album.season}</span>
-                    <span className="font-condensed text-[9px] text-white/40">{album.count} photos</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+        </section>
 
-          <p className="text-center text-white/40 font-condensed text-[11px] tracking-[0.08em] uppercase mt-8">
-            Follow us on <a href="https://instagram.com/wellowildcats" target="_blank" rel="noopener noreferrer" className="text-gold no-underline hover:text-gold-bright">Instagram @wellowildcats</a>
-          </p>
-        </SectionWrapper>
-
-        <SectionWrapper className="bg-cream">
-          <div className="text-center max-w-lg mx-auto">
-            <div className="text-4xl md:text-5xl mb-4">📸</div>
-            <div className="section-label justify-center">Got Photos?</div>
-            <h2 className="font-serif text-[clamp(22px,2.5vw,32px)] font-black text-green-dark mb-4">Share Your Match Day Photos</h2>
-            <p className="text-[14px] md:text-[15px] text-wello-grey leading-[1.75] mb-6 md:mb-8">
+        {/* Share CTA */}
+        <section className="py-12 px-4 md:px-12 bg-white text-center">
+          <div className="max-w-[560px] mx-auto">
+            <div className="text-4xl mb-4">📸</div>
+            <div className="section-label mb-2">Got Photos?</div>
+            <h2 className="font-serif text-[clamp(20px,2.5vw,30px)] font-black text-green-dark mb-3">
+              Share Your Match Day Photos
+            </h2>
+            <p className="text-[14px] text-wello-grey leading-[1.7] mb-6">
               Got great shots from a match or training session? Send them through and we&apos;ll add them to the gallery.
             </p>
-            <a href="mailto:president@wellowildcats.com.au?subject=Photo submission" className="btn-primary">Submit Photos</a>
+            <a
+              href="mailto:president@wellowildcats.com.au?subject=Photo Submission"
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              Send Photos →
+            </a>
           </div>
-        </SectionWrapper>
+        </section>
+
       </main>
       <Footer />
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.92)" }}
+          onClick={() => setLightbox(null)}
+        >
+          {/* Close */}
+          <button
+            className="absolute top-4 right-5 text-white/70 hover:text-white font-condensed text-[13px] font-bold tracking-[0.1em] uppercase z-10"
+            onClick={() => setLightbox(null)}
+          >
+            Close ✕
+          </button>
+
+          {/* Prev */}
+          <button
+            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+          >
+            ‹
+          </button>
+
+          {/* Image */}
+          <div
+            className="relative max-w-[90vw] max-h-[85vh] rounded-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={filtered[lightbox].src}
+              alt={filtered[lightbox].alt}
+              width={1200}
+              height={800}
+              className="object-contain max-h-[85vh] w-auto"
+              style={{ maxWidth: "90vw" }}
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-5 py-3">
+              <span className="font-condensed text-[11px] font-bold tracking-[0.1em] uppercase text-gold">
+                {filtered[lightbox].cat}
+              </span>
+              <p className="text-white text-[13px] mt-0.5">{filtered[lightbox].alt}</p>
+            </div>
+          </div>
+
+          {/* Next */}
+          <button
+            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); next(); }}
+          >
+            ›
+          </button>
+
+          {/* Counter */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-condensed text-[11px] text-white/50 tracking-[0.1em]">
+            {lightbox + 1} / {filtered.length}
+          </div>
+        </div>
+      )}
     </>
   );
 }
