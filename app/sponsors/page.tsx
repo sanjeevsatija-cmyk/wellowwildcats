@@ -265,7 +265,7 @@ export default function SponsorsPage() {
                 <span className="font-condensed text-[10px] font-bold tracking-[0.2em] uppercase text-wello-grey">Gold Partners</span>
                 <div className="h-px flex-1 bg-grey-light" />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[600px] mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {GOLD.map((s, i) => (
                   <SponsorTile key={s.name} s={{ ...s, desc: "" }} delay={300 + i * 150} size="medium" />
                 ))}
