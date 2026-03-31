@@ -15,13 +15,10 @@ export default function Topbar() {
       {/* Desktop */}
       <div className="hidden md:flex items-center justify-between px-10 py-2 text-xs text-white/70 font-sans font-medium tracking-wide">
         <span className="flex items-center gap-1.5">
-          🏏 &nbsp; 16 Ivy Street, Thorneside QLD &nbsp;|&nbsp; QSDCA Competition &nbsp;|&nbsp; Est. 1895
+          📍 &nbsp; 16 Ivy Street, Thorneside QLD 4158
         </span>
         <div className="flex gap-5 items-center">
-          <span className="flex items-center gap-1.5">
-            <span className="live-dot" />
-            &nbsp; Season 2025/26 in progress
-          </span>
+
           <span className="flex items-center gap-3">
             {/* Facebook */}
             <a href="https://facebook.com/wellowildcats" target="_blank" rel="noopener noreferrer"
