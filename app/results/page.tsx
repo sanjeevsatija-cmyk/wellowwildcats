@@ -128,7 +128,7 @@ export default function ResultsPage() {
         </div>
 
         {/* Main content — dark bg matching mockup */}
-        <section className="py-10 md:py-14 px-4 md:px-12" style={{ background: "#1a1a1a" }}>
+        <section className="py-10 md:py-14 px-4 md:px-12" className="bg-cream">
           <div className="max-w-[1100px] mx-auto">
 
             {/* Season at a glance — 4 cards */}
@@ -157,10 +157,10 @@ export default function ResultsPage() {
                     const gWins = gradeMatches.filter((m) => m.result === "W").length;
                     const gLosses = gradeMatches.filter((m) => m.result === "L").length;
                     return (
-                      <div key={grade} className="rounded-xl px-4 py-3 md:px-5 md:py-4" style={{ background: "#2a2a2a" }}>
+                      <div key={grade} className="rounded-xl px-4 py-3 md:px-5 md:py-4 bg-white border border-grey-light">
                         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-                          <span className="font-condensed text-[13px] font-bold text-white">{grade}</span>
-                          <span className="font-condensed text-[11px]" style={{ color: "#aaa" }}>
+                          <span className="font-condensed text-[13px] font-bold text-green-dark">{grade}</span>
+                          <span className="font-condensed text-[11px]" className="text-wello-grey">
                             <span style={{ color: "#4ade80", fontWeight: 700 }}>{gWins}W</span>
                             {" · "}
                             <span style={{ color: "#f87171", fontWeight: 700 }}>{gLosses}L</span>
@@ -216,7 +216,7 @@ export default function ResultsPage() {
                         <p className="font-condensed text-[9px] font-bold tracking-[0.1em] uppercase mb-0.5" style={{ color: "#888" }}>
                           {m.grade}{m.round ? ` · ${m.round}` : ""}
                         </p>
-                        <p className="font-serif text-[15px] font-bold text-white">vs {m.opponent}</p>
+                        <p className="font-serif text-[15px] font-bold text-green-dark">vs {m.opponent}</p>
                         {m.venue && <p className="font-condensed text-[10px] mt-0.5" style={{ color: "#888" }}>📍 {m.venue}</p>}
                       </div>
                       <a
@@ -236,24 +236,24 @@ export default function ResultsPage() {
 
             {/* Empty state */}
             {!loading && matches.length === 0 && (
-              <div className="mb-8 rounded-xl px-6 py-10 text-center" style={{ background: "#2a2a2a" }}>
-                <p className="font-condensed text-[11px] font-bold tracking-[0.15em] uppercase mb-2" style={{ color: "#888" }}>
+              <div className="mb-8 rounded-xl px-6 py-10 text-center bg-white border border-grey-light">
+                <p className="font-condensed text-[11px] font-bold tracking-[0.15em] uppercase mb-2 text-wello-grey">
                   No data yet
                 </p>
-                <p className="text-[14px]" style={{ color: "#888" }}>
+                <p className="text-[14px] text-wello-grey">
                   Results and fixtures will appear here once entered via the club CMS.
                 </p>
               </div>
             )}
 
             {/* PlayHQ hub — dark cards */}
-            <div style={{ borderTop: "1px solid rgba(201,160,48,0.2)", paddingTop: "2rem" }}>
+            <div className="border-t-2 border-gold/20 pt-8">
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px flex-1" style={{ background: "#333" }} />
+                <div className="h-px flex-1" className="bg-grey-light" />
                 <span className="font-condensed text-[10px] font-bold tracking-[0.2em] uppercase text-gold">
                   All Competitions on PlayHQ
                 </span>
-                <div className="h-px flex-1" style={{ background: "#333" }} />
+                <div className="h-px flex-1" className="bg-grey-light" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {hubCompetitions.map((comp) => (
@@ -262,18 +262,18 @@ export default function ResultsPage() {
                     href={comp.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-xl flex items-center justify-between px-4 py-3 no-underline hover:opacity-80 transition-opacity"
-                    style={{ background: "#2a2a2a", borderLeft: `3px solid ${comp.borderColor}` }}
+                    className="rounded-xl flex items-center justify-between px-4 py-3 no-underline hover:border-gold hover:shadow-sm transition-all bg-white border border-grey-light"
+                    style={{ borderLeft: `3px solid ${comp.borderColor}` }}
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="font-condensed text-[9px] font-bold tracking-[0.12em] uppercase mb-0.5" style={{ color: "#888" }}>
+                      <p className="font-condensed text-[9px] font-bold tracking-[0.12em] uppercase mb-0.5 text-wello-grey">
                         {comp.association}
                       </p>
-                      <p className="font-condensed text-[12px] font-bold text-white truncate">{comp.name}</p>
+                      <p className="font-condensed text-[12px] font-bold text-green-dark truncate">{comp.name}</p>
                     </div>
                     <span
                       className="flex-shrink-0 ml-3 font-condensed text-[10px] font-bold rounded-lg px-3 py-1.5"
-                      style={{ background: "#333", color: "#aaa" }}
+                      className="bg-cream text-wello-grey"
                     >
                       View →
                     </span>
@@ -282,7 +282,7 @@ export default function ResultsPage() {
               </div>
               <p className="text-center text-[12px] mt-5" style={{ color: "#666" }}>
                 <a href={PLAYHQ_CLUB} target="_blank" rel="noopener noreferrer"
-                  className="no-underline hover:text-gold transition-colors" style={{ color: "#888" }}>
+                  className="no-underline text-wello-grey hover:text-gold transition-colors">
                   View full club page on PlayHQ →
                 </a>
               </p>
