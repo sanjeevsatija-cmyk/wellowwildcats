@@ -23,9 +23,9 @@ const config: Config = {
         "grey-light":  "#E5E7EB",
       },
       fontFamily: {
-        serif:     ["'Playfair Display'", "Georgia", "serif"],
+        serif:     ["'DM Serif Display'", "Georgia", "serif"],
         sans:      ["'Barlow'", "sans-serif"],
-        condensed: ["'Barlow Condensed'", "sans-serif"],
+        condensed: ["'Raleway'", "sans-serif"],
       },
       animation: {
         "slow-rotate":   "slowRotate 60s linear infinite",
