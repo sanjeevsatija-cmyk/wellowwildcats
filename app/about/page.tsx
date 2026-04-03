@@ -3,7 +3,6 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/shared/PageHero";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,15 +11,34 @@ export const metadata: Metadata = {
 };
 
 const COMMITTEE = [
-  { name: "Gurinder Singh Rangi (Guru)", role: "President",    phone: "0434 512 044", email: "president@wellowildcats.com.au" },
-  { name: "Jamie Stainburn",             role: "Secretary",    phone: "0431 277 265", email: "secretary@wellowildcats.com.au" },
-  { name: "Mike Mason",                  role: "Treasurer",    phone: "",             email: "" },
-  { name: "Brendin Bloye",               role: "VP — Seniors", phone: "0404 381 304", email: "" },
-  { name: "Greg Jones",                  role: "VP — Juniors", phone: "",             email: "" },
+  { name: "Gurinder Singh Rangi (Guru)", role: "President",                   phone: "0434 512 044", email: "president@wellowildcats.com.au" },
+  { name: "Jamieson Stainburn",          role: "Secretary",                   phone: "", email: "secretary@wellowildcats.com.au" },
+  { name: "Andrew Bowker",               role: "Treasurer",                   phone: "", email: "" },
+  { name: "Brendin Boyle",               role: "Vice-President (Seniors)",    phone: "", email: "" },
+  { name: "Alex Robertson",              role: "Vice-President (Juniors)",    phone: "", email: "" },
+  { name: "Greg Rivers",                 role: "Head of Junior Cricket",      phone: "", email: "" },
+  { name: "Lance Simpson",               role: "Head Coach — Junior Cricket", phone: "", email: "" },
+  { name: "David Hunter",                role: "Head of Girls Cricket",       phone: "", email: "" },
+  { name: "Bhavin Gandhi",               role: "Marketing Manager",           phone: "", email: "" },
+  { name: "Brad Houston & Greg White",   role: "Fundraising Managers",        phone: "", email: "" },
+  { name: "Arun Salim",                  role: "Equipment Manager",           phone: "", email: "" },
+];
+
+const COACHES = [
+  "Gurinder Singh Rangi",
+  "Lance Simpson",
+  "Greg Rivers",
+  "Andrew Bowker",
+  "Justin Harrow",
+  "Arun Salim",
+  "Nick Hurford",
+  "Jackson Emmett",
+  "Darren Rudd",
+  "Nick Morrison",
 ];
 
 const FACILITIES = [
-  { icon:"🏏", title:"Turf Wicket",       desc:"Well-maintained turf wicket for all senior QSDCA Saturday competition matches.", photo:"/Pitch1.jpg" },
+  { icon:"🏏", title:"Turf Wicket",       desc:"Well-maintained turf wicket for all senior QSDCA Saturday competition matches." },
   { icon:"🟩", title:"Synthetic Wicket",  desc:"Synthetic practice wicket available for training and junior matches." },
   { icon:"🎯", title:"4 Practice Nets",   desc:"Four fully equipped practice nets for individual and team training." },
   { icon:"🏠", title:"Modern Clubhouse",  desc:"Full facilities through the Mooroondu Sports & Recreation Club including canteen and bar." },
@@ -57,10 +75,10 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-3 md:gap-4">
               {[
-                { val:"1895",  label:"Year Founded" },
-                { val:"130+",  label:"Years of Cricket" },
-                { val:"200+",  label:"Registered Players" },
-                { val:"16+",   label:"Teams Fielded" },
+                { val:"1895", label:"Year Founded" },
+                { val:"130+", label:"Years of Cricket" },
+                { val:"200+", label:"Registered Players" },
+                { val:"16+",  label:"Teams Fielded" },
               ].map((s) => (
                 <div key={s.label} className="bg-cream rounded-lg p-5 md:p-8 text-center border border-grey-light hover:border-gold transition-colors">
                   <div className="font-serif text-[36px] md:text-[48px] font-black text-gold leading-none mb-2">{s.val}</div>
@@ -82,17 +100,10 @@ export default function AboutPage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {FACILITIES.map((f) => (
-              <div key={f.title} className="bg-white rounded-lg border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.1)] transition-all duration-200 overflow-hidden">
-                {(f as any).photo ? (
-                  <div className="relative h-[160px] w-full">
-                    <Image src={(f as any).photo} alt={f.title} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover object-center" />
-                  </div>
-                ) : null}
-                <div className="p-6 md:p-8">
-                  {!(f as any).photo && <div className="text-3xl md:text-4xl mb-3 md:mb-4">{f.icon}</div>}
-                  <h3 className="font-condensed text-[14px] md:text-[16px] font-bold tracking-[0.04em] text-green-dark mb-2 md:mb-3">{f.title}</h3>
-                  <p className="text-[12px] md:text-[13px] text-wello-grey leading-[1.65]">{f.desc}</p>
-                </div>
+              <div key={f.title} className="bg-white rounded-lg p-6 md:p-8 border border-grey-light hover:border-gold hover:shadow-[0_8px_24px_rgba(201,160,48,0.1)] transition-all duration-200">
+                <div className="text-3xl md:text-4xl mb-3 md:mb-4">{f.icon}</div>
+                <h3 className="font-condensed text-[14px] md:text-[16px] font-bold tracking-[0.04em] text-green-dark mb-2 md:mb-3">{f.title}</h3>
+                <p className="text-[12px] md:text-[13px] text-wello-grey leading-[1.65]">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -109,7 +120,7 @@ export default function AboutPage() {
         <SectionWrapper className="bg-white">
           <div className="section-label">Club Leadership</div>
           <h2 className="font-serif text-[clamp(24px,3vw,40px)] font-black text-green-dark leading-[1.1] mb-4">
-            Committee 2024/25
+            Committee 2025/26
           </h2>
           <p className="text-[13px] md:text-[15px] text-wello-grey leading-[1.75] mb-8 md:mb-10 max-w-xl">
             Committee meetings held 2nd Tuesday of each month at 7:00 PM. All members welcome.
@@ -117,15 +128,36 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {COMMITTEE.map((m) => (
               <div key={m.name} className="bg-cream rounded-lg p-5 md:p-7 border border-grey-light hover:border-gold transition-all duration-200">
-                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-green-dark flex items-center justify-center mb-3 md:mb-4 text-xl md:text-2xl text-gold font-serif font-black flex-shrink-0">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-green-dark flex items-center justify-center mb-3 md:mb-4 text-xl text-gold font-serif font-black flex-shrink-0">
                   {m.name.charAt(0)}
                 </div>
                 <div className="font-condensed text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-gold mb-1">{m.role}</div>
-                <h3 className="font-serif text-[16px] md:text-[20px] font-bold text-charcoal mb-2 md:mb-3 leading-snug">{m.name}</h3>
+                <h3 className="font-serif text-[15px] md:text-[17px] font-bold text-charcoal mb-2 leading-snug">{m.name}</h3>
                 <div className="flex flex-col gap-1">
-                  {m.phone && <a href={`tel:${m.phone}`} className="text-[12px] md:text-[13px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2"><span className="text-gold">📞</span>{m.phone}</a>}
-                  {m.email && <a href={`mailto:${m.email}`} className="text-[11px] md:text-[13px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2 break-all"><span className="text-gold">✉️</span>{m.email}</a>}
+                  {m.phone && <a href={`tel:${m.phone}`} className="text-[12px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2"><span className="text-gold">📞</span>{m.phone}</a>}
+                  {m.email && <a href={`mailto:${m.email}`} className="text-[11px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2 break-all"><span className="text-gold">✉️</span>{m.email}</a>}
                 </div>
+              </div>
+            ))}
+          </div>
+        </SectionWrapper>
+
+        {/* Coaches */}
+        <SectionWrapper className="bg-cream">
+          <div className="section-label">Our Coaches</div>
+          <h2 className="font-serif text-[clamp(24px,3vw,40px)] font-black text-green-dark leading-[1.1] mb-4">
+            Season 2025/26 Coaching Staff
+          </h2>
+          <p className="text-[13px] md:text-[15px] text-wello-grey leading-[1.75] mb-8 max-w-xl">
+            Our dedicated coaches give their time to develop players of all ages across every program.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+            {COACHES.map((name) => (
+              <div key={name} className="bg-white rounded-lg p-4 md:p-5 border border-grey-light hover:border-gold transition-all duration-200 text-center">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-dark flex items-center justify-center mx-auto mb-3 text-gold font-serif font-black text-lg">
+                  {name.charAt(0)}
+                </div>
+                <div className="font-condensed text-[11px] md:text-[12px] font-bold text-charcoal leading-snug">{name}</div>
               </div>
             ))}
           </div>
