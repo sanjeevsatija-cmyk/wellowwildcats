@@ -108,7 +108,7 @@ export default function AboutPage() {
             ))}
           </div>
           <div className="mt-8 md:mt-12 rounded-lg overflow-hidden border border-grey-light">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.2!2d153.217!3d-27.503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDMwJzEwLjgiUyAxNTLCsDEzJzAxLjIiRQ!5e0!3m2!1sen!2sau!4v1234567890"
+            <iframe src="https://maps.google.com/maps?q=Mooroondu+Sports+Recreation+Club+16+Ivy+Street+Thorneside+QLD+4158&output=embed"
               width="100%" height="280" style={{ border:0 }} allowFullScreen loading="lazy" title="16 Ivy Street Thorneside" />
           </div>
           <p className="text-center font-condensed text-[11px] text-wello-grey tracking-[0.08em] uppercase mt-3">
@@ -125,17 +125,19 @@ export default function AboutPage() {
           <p className="text-[13px] md:text-[15px] text-wello-grey leading-[1.75] mb-8 md:mb-10 max-w-xl">
             Committee meetings held 2nd Tuesday of each month at 7:00 PM. All members welcome.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {COMMITTEE.map((m) => (
-              <div key={m.name} className="bg-cream rounded-lg p-5 md:p-7 border border-grey-light hover:border-gold transition-all duration-200">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-green-dark flex items-center justify-center mb-3 md:mb-4 text-xl text-gold font-serif font-black flex-shrink-0">
+              <div key={m.name} className="flex items-center gap-4 bg-cream rounded-lg px-4 py-3 border border-grey-light hover:border-gold transition-all duration-200">
+                <div className="w-9 h-9 rounded-full bg-green-dark flex items-center justify-center text-gold font-serif font-black text-sm flex-shrink-0">
                   {m.name.charAt(0)}
                 </div>
-                <div className="font-condensed text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-gold mb-1">{m.role}</div>
-                <h3 className="font-serif text-[15px] md:text-[17px] font-bold text-charcoal mb-2 leading-snug">{m.name}</h3>
-                <div className="flex flex-col gap-1">
-                  {m.phone && <a href={`tel:${m.phone}`} className="text-[12px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2"><span className="text-gold">📞</span>{m.phone}</a>}
-                  {m.email && <a href={`mailto:${m.email}`} className="text-[11px] text-wello-grey no-underline hover:text-green-dark flex items-center gap-2 break-all"><span className="text-gold">✉️</span>{m.email}</a>}
+                <div className="min-w-0">
+                  <div className="font-condensed text-[9px] font-bold tracking-[0.15em] uppercase text-gold">{m.role}</div>
+                  <div className="font-condensed text-[13px] font-bold text-charcoal leading-snug">{m.name}</div>
+                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-0.5">
+                    {m.phone && <a href={`tel:${m.phone}`} className="text-[11px] text-wello-grey no-underline hover:text-green-dark">{m.phone}</a>}
+                    {m.email && <a href={`mailto:${m.email}`} className="text-[11px] text-wello-grey no-underline hover:text-green-dark truncate">{m.email}</a>}
+                  </div>
                 </div>
               </div>
             ))}
@@ -151,13 +153,13 @@ export default function AboutPage() {
           <p className="text-[13px] md:text-[15px] text-wello-grey leading-[1.75] mb-8 max-w-xl">
             Our dedicated coaches give their time to develop players of all ages across every program.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+          <div className="flex flex-wrap gap-2">
             {COACHES.map((name) => (
-              <div key={name} className="bg-white rounded-lg p-4 md:p-5 border border-grey-light hover:border-gold transition-all duration-200 text-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-dark flex items-center justify-center mx-auto mb-3 text-gold font-serif font-black text-lg">
+              <div key={name} className="flex items-center gap-2 bg-white border border-grey-light rounded-full pl-1 pr-4 py-1 hover:border-gold transition-colors">
+                <div className="w-7 h-7 rounded-full bg-green-dark flex items-center justify-center text-gold font-serif font-black text-xs flex-shrink-0">
                   {name.charAt(0)}
                 </div>
-                <div className="font-condensed text-[11px] md:text-[12px] font-bold text-charcoal leading-snug">{name}</div>
+                <span className="font-condensed text-[12px] font-bold text-charcoal">{name}</span>
               </div>
             ))}
           </div>
