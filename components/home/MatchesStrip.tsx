@@ -1,14 +1,42 @@
-const TICKER_ITEMS = [
-  "🏏 Wello 1st XI vs Ormiston CC — This Saturday 11am",
-  "⭐ U14 Boys — Top of the table!",
-  "🦁 Girls team tryouts — Register your interest now",
-  "🏆 Junior Carnival — 3rd April · Wellington Point Oval",
-  "🎯 Senior registrations OPEN for 2025/26 season",
+import { client } from "@/lib/sanity.client";
+import { TICKER_QUERY } from "@/lib/sanity.queries";
+
+// ─── Fallback items (shown if Sanity has no ticker items yet) ─────────────────
+const FALLBACK_ITEMS = [
+  "🏏 Senior registrations open for 2025/26 season",
+  "⭐ Junior cricket — all ages and skill levels welcome",
+  "🦁 Girls cricket — welcoming, fun and competitive",
+  "🏆 Warehouse Cricket — winter competition now underway",
+  "🎯 Cricket Blast — for kids aged 5 to 8",
   "📍 Home ground: 16 Ivy Street, Thorneside QLD",
 ];
 
-export default function MatchesStrip() {
-  const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
+interface TickerItem {
+  _id: string;
+  text: string;
+  emoji?: string;
+}
+
+export default async function MatchesStrip() {
+  let items: string[] = [];
+
+  try {
+    const sanityItems: TickerItem[] = await client.fetch(TICKER_QUERY);
+    if (sanityItems.length > 0) {
+      items = sanityItems.map((item) =>
+        item.emoji ? `${item.emoji} ${item.text}` : item.text
+      );
+    }
+  } catch {
+    // Fail silently — fallback handles it
+  }
+
+  if (items.length === 0) {
+    items = FALLBACK_ITEMS;
+  }
+
+  // Double the items so the scroll loops seamlessly
+  const doubled = [...items, ...items];
 
   return (
     <div

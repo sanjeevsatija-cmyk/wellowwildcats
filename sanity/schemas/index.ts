@@ -5,3 +5,4 @@ export { program }         from "./program";
 export { sponsor }         from "./sponsor";
 export { galleryAlbum }    from "./galleryAlbum";
 export { committeeMember } from "./committeeMember";
+export { tickerItem }      from "./tickerItem";
