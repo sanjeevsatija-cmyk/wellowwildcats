@@ -42,10 +42,23 @@ export const SPONSORS_QUERY = groq`
 
 // ── Gallery albums ────────────────────────────────────────────────
 export const GALLERY_QUERY = groq`
-  *[_type == "galleryAlbum"] | order(order asc) [0...5] {
-    _id, title, season,
+  *[_type == "galleryAlbum"] | order(order asc) {
+    _id, title, season, category,
     coverImage { asset },
     images[] { asset, alt, caption }
+  }
+`;
+
+// ── Homepage: up to 5 images for PhotoMosaic ─────────────────────
+// Fetches albums in order. For each album, returns the coverImage
+// (if set) plus up to 5 images from the images[] array.
+// The component flattens these and picks the first 5 overall —
+// so even if all photos live in one album, all are candidates.
+export const HOME_GALLERY_QUERY = groq`
+  *[_type == "galleryAlbum"] | order(order asc) {
+    _id, title, category,
+    coverImage { asset },
+    "photos": images[0...5] { asset, alt }
   }
 `;
 

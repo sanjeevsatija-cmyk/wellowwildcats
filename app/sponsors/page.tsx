@@ -203,10 +203,11 @@ export default function SponsorsPage() {
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-green-deep/85 via-green-deep/40 to-transparent" />
-          <div className="absolute bottom-8 left-6 md:bottom-12 md:left-14 z-10">
-            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-2">
-              Our Partners
-            </span>
+          <div className="absolute bottom-14 left-6 md:bottom-16 md:left-14 z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="block w-5 h-0.5 bg-gold" />
+              <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold">Our Partners</span>
+            </div>
             <h1 className="font-serif text-[clamp(28px,4vw,56px)] font-black text-white leading-tight mb-3">
               These legends make<br />it all possible
             </h1>
@@ -214,6 +215,7 @@ export default function SponsorsPage() {
               Proudly supported by local businesses who believe in community cricket
             </p>
           </div>
+          <div className="absolute bottom-0 left-[-5%] w-[110%] h-[50px] bg-green-deep pointer-events-none z-10" style={{ transform: "skewY(-2deg)" }} />
         </div>
 
         {/* Stats counter — dark strip */}

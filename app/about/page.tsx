@@ -69,8 +69,11 @@ export default function AboutPage() {
               <p className="text-[14px] md:text-[15px] text-wello-grey leading-[1.85] mb-5">
                 Located beside Moreton Bay with its cooling afternoon sea breezes, WPCC has attracted many players from outside the district and has won more than its fair share of premierships over 130 years.
               </p>
-              <p className="text-[14px] md:text-[15px] text-wello-grey leading-[1.85]">
+              <p className="text-[14px] md:text-[15px] text-wello-grey leading-[1.85] mb-5">
                 In 1999, WPCC relocated to Mooroondu Road in Thorneside to become affiliates of the Mooroondu Sports &amp; Recreation Club — a move that gave the club access to first-class facilities.
+              </p>
+              <p className="text-[14px] md:text-[15px] text-wello-grey leading-[1.85]">
+                The club&apos;s roots run deep in the Redlands community — founded with early meetings held at the Wellington Point Hotel, WPCC has grown into a historic local institution that celebrated 120 years of service in 2015. Over that journey, the club has developed talented players including notable alumnus Clinton Perrin, and continues to nurture the next generation through programs like Cricket Blast for children under 10.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 md:gap-4">

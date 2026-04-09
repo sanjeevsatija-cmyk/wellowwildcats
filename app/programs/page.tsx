@@ -86,11 +86,15 @@ export default function ProgramsPage() {
         <div className="relative w-full h-[300px] md:h-[420px] overflow-hidden">
           <Image src="/young_programs.jpg" alt="Wello Wildcats junior cricket training" fill sizes="100vw" className="object-cover object-center" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-green-deep/75 via-green-deep/20 to-transparent" />
-          <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14 max-w-xl">
-            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-2">Get Involved</span>
+          <div className="absolute bottom-14 left-6 md:bottom-16 md:left-14 max-w-xl">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="block w-5 h-0.5 bg-gold" />
+              <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold">Get Involved</span>
+            </div>
             <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight mb-2">Our Programs</h1>
             <p className="text-[14px] text-white/70 hidden md:block">There&apos;s a Wello Wildcats program for every age — from first-timers to Masters.</p>
           </div>
+          <div className="absolute bottom-0 left-[-5%] w-[110%] h-[50px] bg-cream pointer-events-none" style={{ transform: "skewY(-2deg)" }} />
         </div>
 
         {/* Interactive pathway */}

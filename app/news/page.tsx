@@ -6,15 +6,25 @@ import Link from "next/link";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import { client } from "@/lib/sanity.client";
+import { urlForImage } from "@/lib/sanity.image";
+import { ALL_NEWS_QUERY } from "@/lib/sanity.queries";
 
-const NEWS = [
-  { slug:"1sts-win-round-14",        cat:"Match Report", date:"9 Mar 2026",  title:"1sts Dominate in Round 14 Victory",          excerpt:"A dominant batting display saw the 1sts post 9/287 before rolling the opposition for 164 in an emphatic 123-run victory at 16 Ivy Street.", photo: null },
-  { slug:"2nds-finals-push",          cat:"Match Report", date:"9 Mar 2026",  title:"2nds Strengthen Finals Push with Gritty Win", excerpt:"The 2nd Grade side produced a disciplined performance to secure a hard-fought victory, strengthening their finals position.", photo: null },
-  { slug:"junior-registrations-open", cat:"Club News",    date:"1 Mar 2026",  title:"Winter 2026 Registrations Now Open",         excerpt:"Warehouse Cricket winter 2026 registrations are now open. Register early to secure your spot.", photo: null },
-  { slug:"bears-u17-finals",          cat:"Junior News",  date:"25 Feb 2026", title:"BEARS U17 Qualify for Finals",               excerpt:"The U17 BEARS team has secured a finals berth after a strong performance in the final rounds of the regular season.", photo: null },
-  { slug:"cricket-blast-start",       cat:"Junior News",  date:"18 Feb 2026", title:"Cricket Blast Season Kicks Off",             excerpt:"Our Cricket Blast program welcomed a new group of young players this week for the start of the 2025/26 season.", photo: null },
-  { slug:"presentation-night",        cat:"Club News",    date:"10 Feb 2026", title:"Junior Presentation Night — Save the Date",  excerpt:"Our annual junior presentation night is set for Friday 28 March. All families welcome — a great night to celebrate our young players.", photo: null },
-];
+interface NewsItem {
+  slug:    string;
+  cat:     string;
+  date:    string;
+  title:   string;
+  excerpt: string;
+  photo:   string | null;
+}
+
+function formatDate(iso: string) {
+  return new Date(iso + "T00:00:00").toLocaleDateString("en-AU", {
+    day: "numeric", month: "short", year: "numeric",
+  });
+}
+
 
 const CAT: Record<string, { border: string; badge: string; bg: string; text: string }> = {
   "Match Report": { border:"#2A6B2A", badge:"bg-green-dark text-white",  bg:"#142E14", text:"MATCH\nREPORT" },
@@ -76,7 +86,7 @@ function useReveal() {
 }
 
 // --- News card with shine effect ---
-function NewsCard({ n, delay }: { n: typeof NEWS[0]; delay: number }) {
+function NewsCard({ n, delay }: { n: NewsItem; delay: number }) {
   const { ref, visible } = useReveal();
   const style = CAT[n.cat] || CAT["Club News"];
 
@@ -254,6 +264,26 @@ function ResourceSection({ section }: { section: typeof RESOURCES[0] }) {
 }
 
 export default function NewsResourcesPage() {
+  const [sanityNews, setSanityNews] = useState<NewsItem[]>([]);
+  const [loadingNews, setLoadingNews] = useState(true);
+
+  useEffect(() => {
+    client.fetch(ALL_NEWS_QUERY)
+      .then((posts: any[]) => {
+        const mapped: NewsItem[] = (posts || []).map((p) => ({
+          slug:    p.slug?.current || p._id,
+          cat:     p.category || "Club News",
+          date:    p.publishedAt ? formatDate(p.publishedAt) : "",
+          title:   p.title || "",
+          excerpt: p.excerpt || "",
+          photo:   p.featuredImage?.asset ? urlForImage(p.featuredImage).width(600).url() : null,
+        }));
+        setSanityNews(mapped);
+        setLoadingNews(false);
+      })
+      .catch(() => setLoadingNews(false));
+  }, []);
+
   return (
     <>
       <Topbar />
@@ -264,10 +294,14 @@ export default function NewsResourcesPage() {
         <div className="relative w-full h-[260px] md:h-[360px] overflow-hidden">
           <Image src="/Events.jpg" alt="Wello Wildcats club event" fill sizes="100vw" className="object-cover object-center" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-green-deep/80 via-green-deep/30 to-transparent" />
-          <div className="absolute bottom-8 left-6 md:bottom-10 md:left-14">
-            <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold block mb-2">Stay Informed</span>
+          <div className="absolute bottom-14 left-6 md:bottom-16 md:left-14">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="block w-5 h-0.5 bg-gold" />
+              <span className="font-condensed text-[10px] font-bold tracking-[0.18em] uppercase text-gold">Stay Informed</span>
+            </div>
             <h1 className="font-serif text-[clamp(28px,4vw,52px)] font-black text-white leading-tight">News &amp; Resources</h1>
           </div>
+          <div className="absolute bottom-0 left-[-5%] w-[110%] h-[50px] bg-cream pointer-events-none" style={{ transform: "skewY(-2deg)" }} />
         </div>
 
         {/* News section */}
@@ -279,11 +313,23 @@ export default function NewsResourcesPage() {
             </h2>
 
             {/* 3-column magazine grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {NEWS.map((n, i) => (
-                <NewsCard key={n.slug} n={n} delay={i * 80} />
-              ))}
-            </div>
+            {loadingNews && (
+              <div className="text-center py-12 font-condensed text-[13px] text-wello-grey tracking-[0.1em] uppercase">
+                Loading news...
+              </div>
+            )}
+            {!loadingNews && sanityNews.length === 0 && (
+              <div className="text-center py-12 font-condensed text-[13px] text-wello-grey tracking-[0.1em] uppercase">
+                No posts yet — add some in Sanity Studio
+              </div>
+            )}
+            {!loadingNews && sanityNews.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {sanityNews.map((n, i) => (
+                  <NewsCard key={n.slug} n={n} delay={i * 80} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

@@ -110,7 +110,8 @@ export default function Footer() {
             <Link href="/privacy" className="text-white/40 no-underline hover:text-gold">Privacy Policy</Link>
           </div>
           <div className="flex items-center gap-2.5 font-condensed text-[11px] tracking-[0.1em] uppercase">
-            <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center font-serif text-[9px] font-bold text-gold text-center leading-tight">
+            <div className="w-10 h-10 flex items-center justify-center font-condensed text-[9px] font-bold text-gold text-center leading-tight"
+              style={{ background:"rgba(201,160,48,0.08)", border:"1px solid rgba(201,160,48,0.2)", clipPath:"polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))" }}>
               EST<br />1895
             </div>
             130 Years of Cricket

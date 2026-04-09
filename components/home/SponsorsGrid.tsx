@@ -1,115 +1,74 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import Link from "next/link";
 
-const SPONSORS = [
-  { name: "Manny's Italian",       logo: "/sponsors/mannys.png",       href: "https://www.mannysitalian.com.au/",   logoBg: "bg-black",  tier: "Platinum" },
-  { name: "Punjab Curry Club",     logo: "/sponsors/punjab.png",       href: "https://punjabcurryclub.com.au/",     logoBg: "bg-black",  tier: "Platinum" },
-  { name: "Mortgage Finance Guru", logo: "/sponsors/mortgageguru.png", href: "https://mortgagefinanceguru.com.au/", logoBg: "bg-black",  tier: "Platinum" },
-  { name: "Cricket Gurus",         logo: "/sponsors/cricketgurus.png", href: "https://www.cricketgurus.com.au/",    logoBg: "bg-white",  tier: "Gold" },
-  { name: "LG Wealth",             logo: "/sponsors/lgwealth.png",     href: "https://lgwealth.com.au/",            logoBg: "bg-white",  tier: "Gold" },
+const PLATINUM = [
+  { name: "Manny's Italian",       logo: "/sponsors/mannys.png",       href: "/sponsors" },
+  { name: "Punjab Curry Club",     logo: "/sponsors/punjab.png",       href: "/sponsors" },
+  { name: "Mortgage Finance Guru", logo: "/sponsors/mortgageguru.png", href: "/sponsors" },
 ];
 
-// Duplicate for seamless loop
-const CAROUSEL = [...SPONSORS, ...SPONSORS, ...SPONSORS];
+const GOLD = [
+  { name: "Cricket Gurus", logo: "/sponsors/cricketgurus.png", href: "/sponsors" },
+  { name: "LG Wealth",     logo: "/sponsors/lgwealth.png",     href: "/sponsors" },
+];
+
+function TierLabel({ label }: { label: string }) {
+  return (
+    <div className="flex items-center justify-center gap-3 mb-5 font-condensed text-[10px] font-bold tracking-[0.3em] uppercase text-black/30">
+      <span className="flex-1 h-px bg-black/[0.09] max-w-[80px]" />
+      {label}
+      <span className="flex-1 h-px bg-black/[0.09] max-w-[80px]" />
+    </div>
+  );
+}
 
 export default function SponsorsGrid() {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    let x = 0;
-    let paused = false;
-    let animId: number;
-
-    const step = () => {
-      if (!paused) {
-        x -= 0.4;
-        const third = track.scrollWidth / 3;
-        if (Math.abs(x) >= third) x = 0;
-        track.style.transform = `translateX(${x}px)`;
-      }
-      animId = requestAnimationFrame(step);
-    };
-
-    animId = requestAnimationFrame(step);
-
-    const el = track.parentElement;
-    el?.addEventListener("mouseenter", () => { paused = true; });
-    el?.addEventListener("mouseleave", () => { paused = false; });
-
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
   return (
-    <section className="py-10 md:py-14 bg-white overflow-hidden">
-      <div className="max-w-[1240px] mx-auto px-4 md:px-12 mb-6 flex items-end justify-between">
-        <div>
-          <div className="section-label">Our Partners</div>
-          <h2 className="font-serif text-[clamp(22px,3vw,36px)] font-black text-green-dark leading-tight">
-            These legends back us
-          </h2>
+    <section className="bg-cream text-center" style={{ padding: "52px 52px 44px" }}>
+      <div className="max-w-[960px] mx-auto">
+
+        {/* Header */}
+        <div className="inline-flex items-center justify-center gap-2 mb-3 font-condensed text-[11px] font-bold tracking-[0.25em] uppercase text-gold">
+          <span className="block w-6 h-0.5 bg-gold" />
+          Our community backers
         </div>
-        <a
-          href="/sponsors"
-          className="font-condensed text-[11px] font-bold tracking-[0.1em] uppercase text-green-dark no-underline border border-green-dark/40 px-4 py-2 rounded hover:bg-cream transition-all hidden md:block"
-        >
-          Become a Sponsor
-        </a>
-      </div>
+        <h2 className="font-serif text-green-deep leading-tight mb-3" style={{ fontSize: "clamp(28px,4vw,48px)" }}>
+          Proud <em className="not-italic text-gold">Partners</em>
+        </h2>
+        <p className="mb-12 mx-auto font-sans text-base text-wello-grey leading-relaxed" style={{ maxWidth: 420 }}>
+          We&apos;re grateful to the local businesses who make Wello cricket possible — year after year.
+        </p>
 
-      {/* Carousel track */}
-      <div className="relative overflow-hidden">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, white, transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, white, transparent)" }} />
-
-        <div ref={trackRef} className="flex items-center gap-6 md:gap-8 py-4 will-change-transform">
-          {CAROUSEL.map((s, i) => (
-            <a
-              key={i}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 group no-underline"
-            >
-              <div className={`
-                ${s.logoBg} rounded-xl border border-grey-light
-                px-6 py-4 flex flex-col items-center justify-center gap-2
-                w-[160px] md:w-[190px] h-[100px] md:h-[110px]
-                hover:border-gold hover:shadow-[0_6px_24px_rgba(201,160,48,0.15)]
-                transition-all duration-200 group-hover:-translate-y-1
-              `}>
-                <div className="relative w-full h-[52px] flex items-center justify-center">
-                  <Image
-                    src={s.logo}
-                    alt={s.name}
-                    width={140}
-                    height={52}
-                    className="object-contain max-h-[52px] w-auto"
-                  />
-                </div>
+        {/* Platinum */}
+        <TierLabel label="Platinum Sponsors" />
+        <div className="flex justify-center items-center gap-6 flex-wrap mb-10">
+          {PLATINUM.map((s) => (
+            <Link key={s.name} href={s.href} className="no-underline group">
+              <div className="bg-white flex items-center justify-center transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-gold-glow group-hover:border-gold"
+                style={{ borderRadius: 12, border: "1px solid rgba(0,0,0,0.07)", borderTop: "3px solid #C9A030", padding: "20px 28px", minWidth: 160, minHeight: 80 }}>
+                <Image src={s.logo} alt={s.name} width={120} height={50} className="object-contain max-h-12" />
               </div>
-              <p className="text-center font-condensed text-[9px] font-bold tracking-[0.1em] uppercase text-wello-grey mt-2">
-                {s.tier}
-              </p>
-            </a>
+            </Link>
           ))}
         </div>
-      </div>
 
-      <div className="text-center mt-4 md:hidden">
-        <a
-          href="/sponsors"
-          className="font-condensed text-[11px] font-bold tracking-[0.1em] uppercase text-green-dark no-underline"
-        >
+        {/* Gold */}
+        <TierLabel label="Gold Sponsors" />
+        <div className="flex justify-center items-center gap-6 flex-wrap mb-10">
+          {GOLD.map((s) => (
+            <Link key={s.name} href={s.href} className="no-underline group">
+              <div className="bg-white flex items-center justify-center transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-card-hover"
+                style={{ borderRadius: 12, border: "1px solid rgba(0,0,0,0.07)", borderTop: "2px solid rgba(201,160,48,0.4)", padding: "20px 28px", minWidth: 150, minHeight: 76 }}>
+                <Image src={s.logo} alt={s.name} width={110} height={44} className="object-contain max-h-11" />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Become a sponsor */}
+        <Link href="/sponsors#become" className="inline-flex items-center gap-2 no-underline font-condensed text-[12px] font-bold tracking-[0.1em] uppercase text-green-deep border-b border-green-deep/30 pb-0.5 hover:text-gold hover:border-gold transition-colors">
           Become a Sponsor →
-        </a>
+        </Link>
       </div>
     </section>
   );

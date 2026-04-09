@@ -69,7 +69,8 @@ export default function Nav() {
             href={REG_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gold text-green-deep px-4 py-2 rounded font-condensed font-extrabold text-[12px] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-gold-bright whitespace-nowrap"
+            className="bg-gold text-green-deep px-4 py-2 font-condensed font-extrabold text-[12px] tracking-[0.05em] uppercase no-underline transition-all duration-200 hover:bg-gold-bright whitespace-nowrap"
+            style={{ clipPath: "polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))" }}
           >
             Join Now
           </a>
@@ -107,7 +108,8 @@ export default function Nav() {
               href={REG_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-center bg-gold text-green-deep py-3 rounded font-condensed font-extrabold tracking-[0.08em] uppercase text-sm no-underline"
+              className="block text-center bg-gold text-green-deep py-3 font-condensed font-extrabold tracking-[0.08em] uppercase text-sm no-underline"
+              style={{ clipPath: "polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))" }}
             >
               Join Now
             </a>

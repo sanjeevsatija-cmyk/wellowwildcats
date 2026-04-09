@@ -20,6 +20,21 @@ export const galleryAlbum = defineType({
         ],
       }],
     }),
+    defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Match Day",  value: "Match Day"  },
+          { title: "Juniors",    value: "Juniors"    },
+          { title: "Girls",      value: "Girls"      },
+          { title: "Events",     value: "Events"     },
+          { title: "Training",   value: "Training"   },
+        ],
+      },
+      validation: (R) => R.required(),
+    }),
     defineField({ name: "order", title: "Sort Order", type: "number" }),
   ],
   preview: {
