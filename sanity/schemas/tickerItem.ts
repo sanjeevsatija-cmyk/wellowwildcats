@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-
+ 
 export const tickerItem = defineType({
   name: "tickerItem",
   title: "News Ticker",
