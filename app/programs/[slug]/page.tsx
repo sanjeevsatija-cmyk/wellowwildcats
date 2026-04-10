@@ -2,9 +2,9 @@ import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Program Details" };
 export const revalidate = 3600;
 
 const REG_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
@@ -93,8 +93,28 @@ Fixtures run from Saturday 2nd May through to mid-August, with semi-finals held 
   },
 };
 
+// ─── Static params ────────────────────────────────────────────────────────────
+export function generateStaticParams() {
+  return Object.keys(PROGRAMS).map((slug) => ({ slug }));
+}
+
+// ─── Metadata ─────────────────────────────────────────────────────────────────
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const p = PROGRAMS[params.slug];
+  if (!p) return { title: "Program Not Found" };
+  return {
+    title: `${p.name} — Wello Wildcats`,
+    description: p.detail.split('\n\n')[0],
+  };
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ProgramDetailPage({ params }: { params: { slug: string } }) {
-  const p = PROGRAMS[params.slug] || PROGRAMS["cricket-blast"];
+  const p = PROGRAMS[params.slug];
+
+  // Return proper 404 for unknown slugs
+  if (!p) notFound();
+
   const others = Object.entries(PROGRAMS).filter(([slug]) => slug !== params.slug);
 
   return (
