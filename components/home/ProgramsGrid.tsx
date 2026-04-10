@@ -25,7 +25,7 @@ const PROGRAMS = [
     emoji: "🦁",
     ages: "All ages",
     desc: "A welcoming, fun and competitive team for girls who love the game.",
-    href: "/programs",
+    href: "/programs/girls-cricket",
     bg: "#8B1A1A",
   },
   {
