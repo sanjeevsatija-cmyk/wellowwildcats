@@ -4,10 +4,11 @@ interface PageHeroProps {
   label: string;
   title: string;
   subtitle?: string;
-  image?: string; // path to image in /public, e.g. "/About.jpg"
+  image?: string;
+  imagePosition?: string;
 }
 
-export default function PageHero({ label, title, subtitle, image }: PageHeroProps) {
+export default function PageHero({ label, title, subtitle, image, imagePosition = "object-center" }: PageHeroProps) {
   return (
     <section className="relative bg-green-deep overflow-hidden pb-20 pt-12 md:pt-16 px-4 md:px-12">
 
@@ -19,7 +20,7 @@ export default function PageHero({ label, title, subtitle, image }: PageHeroProp
             alt={title}
             fill
             sizes="100vw"
-            className="object-cover object-center"
+            className={`object-cover ${imagePosition}`}
             priority
           />
           {/* Darker overlay when photo is present */}

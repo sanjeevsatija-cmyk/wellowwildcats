@@ -17,11 +17,12 @@ export default function ContactPage() {
       <Nav />
       <main>
         <PageHero
-          label="Get in Touch"
-          title="Contact the Club"
-          subtitle="We'd love to hear from you — whether you're looking to join, volunteer, sponsor, or just find out more."
-          image="/Contact.jpg"
-        />
+        label="Get in Touch"
+        title="Contact the Club"
+        subtitle="We'd love to hear from you — whether you're looking to join, volunteer, sponsor, or just find out more."
+        image="/Contact.jpg"
+        imagePosition="object-top"
+/>
 
         <SectionWrapper className="bg-cream">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 md:gap-14">
