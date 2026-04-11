@@ -10,6 +10,7 @@ import {
   sponsor,
   galleryAlbum,
   committeeMember,
+  tickerItem,
 } from "./sanity/schemas";
 
 const structure = (S: any) =>
@@ -27,6 +28,8 @@ const structure = (S: any) =>
       S.documentTypeListItem("sponsor").title("🤝  Sponsors"),
       S.documentTypeListItem("galleryAlbum").title("📸  Photo Gallery"),
       S.documentTypeListItem("committeeMember").title("👤  Committee"),
+      S.divider(),
+      S.documentTypeListItem("tickerItem").title("📢  News Ticker"),
     ]);
 
 export default defineConfig({
@@ -38,7 +41,7 @@ export default defineConfig({
   plugins: [structureTool({ structure })],
   schema: {
     types: [
-      siteSettings, newsPost, result, program, sponsor, galleryAlbum, committeeMember,
+      siteSettings, newsPost, result, program, sponsor, galleryAlbum, committeeMember, tickerItem,
     ],
   },
 });

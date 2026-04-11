@@ -1,16 +1,15 @@
 import { defineField, defineType } from "sanity";
- 
+
 export const tickerItem = defineType({
   name: "tickerItem",
   title: "News Ticker",
   type: "document",
-  icon: () => "📢",
   fields: [
     defineField({
       name: "text",
       title: "Ticker Text",
       type: "string",
-      description: "The message that scrolls across the homepage ticker. Keep it short — under 80 characters works best.",
+      description: "The message that scrolls across the homepage ticker. Keep it under 80 characters.",
       validation: (R) => R.required().max(120),
     }),
     defineField({
@@ -23,14 +22,14 @@ export const tickerItem = defineType({
       name: "active",
       title: "Active",
       type: "boolean",
-      description: "Uncheck to hide this item from the ticker without deleting it.",
+      description: "Uncheck to hide this item without deleting it.",
       initialValue: true,
     }),
     defineField({
       name: "order",
       title: "Order",
       type: "number",
-      description: "Controls the order items appear in the ticker. Lower number = appears first.",
+      description: "Lower number = appears first in the ticker.",
       initialValue: 10,
     }),
   ],
@@ -43,7 +42,4 @@ export const tickerItem = defineType({
       };
     },
   },
-  orderings: [
-    { title: "Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
-  ],
 });
