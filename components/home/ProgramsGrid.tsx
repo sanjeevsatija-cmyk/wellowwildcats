@@ -4,7 +4,7 @@ const PROGRAMS = [
   {
     name: "Cricket Blast",
     watermark: "BLAST",
-    emoji: "🏏",
+    emoji: "🌟",
     ages: "Ages 5–8",
     desc: "First taste of cricket — bats, balls and big smiles! Designed for the littlest Wildcats.",
     href: "/programs/cricket-blast",
@@ -13,7 +13,7 @@ const PROGRAMS = [
   {
     name: "RCI Trebles",
     watermark: "TREB",
-    emoji: "⭐",
+    emoji: "⚡",
     ages: "Ages 8–11",
     desc: "Building skills, making friends and loving the game in our junior development pathway.",
     href: "/programs/rci-trebles",
@@ -31,7 +31,7 @@ const PROGRAMS = [
   {
     name: "Junior Cricket",
     watermark: "JNRS",
-    emoji: "🏆",
+    emoji: "🏏",
     ages: "Ages 10–16",
     desc: "Compete at district level with BEARS and grow as a player every season.",
     href: "/programs/junior-cricket",
@@ -40,7 +40,7 @@ const PROGRAMS = [
   {
     name: "Senior Cricket",
     watermark: "SNRS",
-    emoji: "🎯",
+    emoji: "🏆",
     ages: "17+",
     desc: "QSDCA competition cricket across all grades — new players always welcome.",
     href: "/programs/senior-cricket",
@@ -49,9 +49,9 @@ const PROGRAMS = [
   {
     name: "Winter Cricket",
     watermark: "WIN",
-    emoji: "🌧️",
+    emoji: "🏢",
     ages: "Winter season",
-    desc: "Year-round cricket so you never have a dull off-season. Indoor fun for everyone.",
+    desc: "Year-round cricket so you never have a dull off-season. Fun for everyone.",
     href: "/programs/warehouse-cricket",
     bg: "#1a4a7a",
   },
