@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
@@ -38,9 +38,9 @@ export default function GalleryPage() {
   const [photos, setPhotos]     = useState<FlatPhoto[]>([]);
   const [loading, setLoading]   = useState(true);
 
-  // Touch swipe tracking
+  const lightboxRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
-  const SWIPE_THRESHOLD = 50; // px
+  const SWIPE_THRESHOLD = 40;
 
   useEffect(() => {
     client.fetch<GalleryAlbum[]>(GALLERY_QUERY)
@@ -65,21 +65,48 @@ export default function GalleryPage() {
 
   const filtered = active === "All" ? photos : photos.filter((p) => p.cat === active);
 
-  const prev = () => setLightbox((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
-  const next = () => setLightbox((i) => (i !== null ? (i + 1) % filtered.length : null));
+  const prev  = useCallback(() => setLightbox((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null)), [filtered.length]);
+  const next  = useCallback(() => setLightbox((i) => (i !== null ? (i + 1) % filtered.length : null)), [filtered.length]);
+  const close = useCallback(() => setLightbox(null), []);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
+  // ── Keyboard navigation ──────────────────────────────────────────
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "Escape")     close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox, prev, next, close]);
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      diff > 0 ? next() : prev();
-    }
-    touchStartX.current = null;
-  };
+  // ── Touch swipe — imperative with passive:false to prevent scroll ─
+  useEffect(() => {
+    if (lightbox === null) return;
+    const el = lightboxRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartX.current = e.touches[0].clientX;
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (touchStartX.current === null) return;
+      const diff = touchStartX.current - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > SWIPE_THRESHOLD) {
+        e.preventDefault();
+        diff > 0 ? next() : prev();
+      }
+      touchStartX.current = null;
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchend",   onTouchEnd,   { passive: false });
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchend",   onTouchEnd);
+    };
+  }, [lightbox, next, prev]);
 
   return (
     <>
@@ -128,13 +155,11 @@ export default function GalleryPage() {
         {/* Masonry grid */}
         <section className="bg-cream px-4 md:px-12 py-8">
           <div className="max-w-[1100px] mx-auto">
-
             {loading && (
               <div className="text-center py-20 text-wello-grey font-condensed text-[13px] tracking-[0.1em] uppercase">
                 Loading photos...
               </div>
             )}
-
             {!loading && filtered.length === 0 && (
               <div className="text-center py-20">
                 <div className="text-4xl mb-4">📸</div>
@@ -143,7 +168,6 @@ export default function GalleryPage() {
                 </p>
               </div>
             )}
-
             {!loading && filtered.length > 0 && (
               <div className="[column-count:2] md:[column-count:3]" style={{ columnGap: "12px" }}>
                 {filtered.map((photo, i) => (
@@ -198,30 +222,39 @@ export default function GalleryPage() {
       </main>
       <Footer />
 
-      {/* Lightbox */}
+      {/* ── Lightbox ── z-[300] sits above Nav z-[200] ── */}
       {lightbox !== null && filtered[lightbox] && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          ref={lightboxRef}
+          className="fixed inset-0 z-[300] flex items-center justify-center"
           style={{ background: "rgba(0,0,0,0.92)" }}
-          onClick={() => setLightbox(null)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onClick={close}
         >
+          {/* Close */}
           <button
             className="absolute top-4 right-5 text-white/70 hover:text-white font-condensed text-[13px] font-bold tracking-[0.1em] uppercase z-10"
-            onClick={() => setLightbox(null)}
+            onClick={close}
           >
             Close ✕
           </button>
 
-          {/* Prev arrow — hidden on mobile (use swipe) */}
+          {/* Keyboard hint — desktop only */}
+          <div className="hidden md:flex absolute top-4 left-1/2 -translate-x-1/2 items-center gap-2 text-white/30 font-condensed text-[10px] tracking-[0.1em] uppercase pointer-events-none">
+            <span>← → Arrow keys</span>
+            <span>·</span>
+            <span>Esc to close</span>
+          </div>
+
+          {/* Prev — desktop only */}
           <button
-            className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center text-lg transition-colors z-10"
+            className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white items-center justify-center text-2xl transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); prev(); }}
+            aria-label="Previous photo"
           >
             ‹
           </button>
 
+          {/* Image */}
           <div
             className="relative max-w-[90vw] max-h-[85vh] rounded-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
@@ -242,23 +275,21 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          {/* Next arrow — hidden on mobile (use swipe) */}
+          {/* Next — desktop only */}
           <button
-            className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center text-lg transition-colors z-10"
+            className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white items-center justify-center text-2xl transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); next(); }}
+            aria-label="Next photo"
           >
             ›
           </button>
 
-          {/* Mobile swipe hint — fades out after first interaction */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:hidden pointer-events-none">
-            <div className="flex items-center gap-2 text-white/40 font-condensed text-[10px] tracking-[0.12em] uppercase">
-              <span>‹</span>
-              <span>Swipe to navigate</span>
-              <span>›</span>
-            </div>
+          {/* Mobile swipe hint */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/35 font-condensed text-[10px] tracking-[0.12em] uppercase md:hidden pointer-events-none">
+            <span>‹</span><span>Swipe to navigate</span><span>›</span>
           </div>
 
+          {/* Counter */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-condensed text-[11px] text-white/50 tracking-[0.1em]">
             {lightbox + 1} / {filtered.length}
           </div>
