@@ -53,7 +53,7 @@ const PROGRAMS = [
   {
     slug: "warehouse-cricket",
     icon: "🏢",
-    name: "Warehouse Cricket",
+    name: "Winter Cricket",
     age: "U12–U16 & Adults",
     tag: "Winter 2026",
     photo: "/Warehouse.jpg",

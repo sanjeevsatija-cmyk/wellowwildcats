@@ -22,7 +22,7 @@ const PROGRAMS = [
   {
     name: "Girls Cricket",
     watermark: "GIRLS",
-    emoji: "🦁",
+    emoji: "👧",
     ages: "All ages",
     desc: "A welcoming, fun and competitive team for girls who love the game.",
     href: "/programs/girls-cricket",
@@ -47,7 +47,7 @@ const PROGRAMS = [
     bg: "#0D1F0D",
   },
   {
-    name: "Warehouse Cricket",
+    name: "Winter Cricket",
     watermark: "WIN",
     emoji: "🌧️",
     ages: "Winter season",
