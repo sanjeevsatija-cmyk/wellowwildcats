@@ -29,6 +29,7 @@ export const galleryAlbum = defineType({
           { title: "Match Day",  value: "Match Day"  },
           { title: "Juniors",    value: "Juniors"    },
           { title: "Girls",      value: "Girls"      },
+          { title: "Seniors",    value: "Seniors" },
           { title: "Events",     value: "Events"     },
           { title: "Training",   value: "Training"   },
         ],

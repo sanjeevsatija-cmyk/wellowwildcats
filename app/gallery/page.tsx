@@ -9,7 +9,7 @@ import { client } from "@/lib/sanity.client";
 import { urlForImage } from "@/lib/sanity.image";
 import { GALLERY_QUERY } from "@/lib/sanity.queries";
 
-const FILTERS = ["All", "Match Day", "Juniors", "Girls", "Events", "Training"];
+const FILTERS = ["All", "Match Day", "Juniors", "Girls", "Seniors","Events", "Training"];
 
 interface SanityImage {
   asset: { _ref: string };
@@ -190,6 +190,7 @@ export default function GalleryPage() {
                         photo.cat === "Events"   ? "bg-purple-600 text-white" :
                         photo.cat === "Training" ? "bg-amber-500 text-white"  :
                         photo.cat === "Juniors"  ? "bg-green-600 text-white"  :
+                        photo.cat === "Seniors"  ? "bg-red-700 text-white"    :
                         "bg-gold text-green-deep"
                       }`}>
                         {photo.cat}
