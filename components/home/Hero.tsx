@@ -153,25 +153,17 @@ export default function Hero() {
       <div ref={statsRef} className="bg-gold relative" style={{ zIndex:20 }}>
         <div className="max-w-[1240px] mx-auto px-5 md:px-14 py-6 md:py-5">
 
-          {/* Mobile: 2-col grid (last item centred across both cols) */}
-          <div className="grid grid-cols-2 gap-y-5 gap-x-3 md:hidden">
+          {/* Single set of elements — grid on mobile, flex row on desktop */}
+          <div className="grid grid-cols-2 gap-y-5 gap-x-3 md:flex md:justify-around md:items-center md:gap-0">
             {STATS.map((s, i) => (
-              <div key={s.id} className={`text-center ${i === STATS.length - 1 ? "col-span-2" : ""}`}>
-                <div id={s.id} className="font-serif text-green-deep leading-none" style={{ fontSize:30 }}>0</div>
-                <div className="font-condensed font-bold tracking-[0.2em] uppercase mt-1" style={{ fontSize:9, color:"rgba(20,46,20,0.65)" }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop: flex row with dividers */}
-          <div className="hidden md:flex justify-around items-center">
-            {STATS.map((s, i) => (
-              <div key={s.id} className="flex items-center gap-6">
+              <div key={s.id} className={`flex items-center gap-0 md:gap-6 ${i === STATS.length - 1 ? "col-span-2 justify-center md:justify-start" : ""}`}>
                 <div className="text-center">
-                  <div id={`${s.id}-d`} className="font-serif text-green-deep leading-none" style={{ fontSize:36 }}>0</div>
-                  <div className="font-condensed font-bold tracking-[0.2em] uppercase mt-1" style={{ fontSize:10, color:"rgba(20,46,20,0.65)" }}>{s.label}</div>
+                  <div id={s.id} className="font-serif text-green-deep leading-none" style={{ fontSize: 30 }}>0</div>
+                  <div className="font-condensed font-bold tracking-[0.2em] uppercase mt-1" style={{ fontSize: 9, color:"rgba(20,46,20,0.65)" }}>{s.label}</div>
                 </div>
-                {i < STATS.length - 1 && <div style={{ width:1,height:30,background:"rgba(20,46,20,0.2)" }} />}
+                {i < STATS.length - 1 && (
+                  <div className="hidden md:block ml-6" style={{ width:1, height:30, background:"rgba(20,46,20,0.2)" }} />
+                )}
               </div>
             ))}
           </div>
