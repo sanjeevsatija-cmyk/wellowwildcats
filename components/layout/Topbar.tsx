@@ -8,7 +8,7 @@ export default function Topbar() {
         </span>
         <span className="flex items-center gap-1.5 flex-shrink-0 ml-3">
           <span className="live-dot" />
-          <span className="text-white/70">2025/26</span>
+          <span className="text-white/70">2025/26 Season Live</span>
         </span>
       </div>
 
@@ -18,7 +18,6 @@ export default function Topbar() {
           📍 &nbsp; 16 Ivy Street, Thorneside QLD 4158
         </span>
         <div className="flex gap-5 items-center">
-
           <span className="flex items-center gap-3">
             {/* Facebook */}
             <a href="https://facebook.com/wellowildcats" target="_blank" rel="noopener noreferrer"

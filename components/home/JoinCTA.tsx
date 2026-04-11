@@ -4,22 +4,19 @@ const REG_URL =
   "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
 
 const JOIN_OPTIONS = [
-  { icon: "🏏", label: "Junior Cricket",     sub: "Ages 5–16 · All skill levels",    href: "/programs/junior-cricket" },
-  { icon: "🦁", label: "Girls Cricket",      sub: "Welcoming, fun & competitive",     href: "/programs" },
-  { icon: "🎯", label: "Senior Men",         sub: "Grades 1–4 · SENIOR",              href: "/programs/senior-cricket" },
-  { icon: "🌧️", label: "Warehouse Cricket",  sub: "Winter cricket · Year-round",      href: "/programs/warehouse-cricket" },
+  { icon: "🏏", label: "Junior Cricket",  sub: "Ages 5–16 · All skill levels",  href: "/programs/junior-cricket" },
+  { icon: "👧", label: "Girls Cricket",   sub: "Welcoming, fun & competitive",   href: "/programs/girls-cricket" },
+  { icon: "🎯", label: "Senior Men",      sub: "Grades 1–4 · QSDCA",            href: "/programs/senior-cricket" },
+  { icon: "🌧️", label: "Winter Cricket", sub: "Winter cricket · Year-round",    href: "/programs/warehouse-cricket" },
 ];
 
 export default function JoinCTA() {
   return (
-    <section
-      style={{ display:"grid", gridTemplateColumns:"1fr 1fr", minHeight:460, marginTop:80 }}
-    >
+    <section className="grid grid-cols-1 md:grid-cols-2 mt-16 md:mt-20">
+
       {/* LEFT — dark green with text */}
-      <div
-        className="flex flex-col justify-center"
-        style={{ background:"#142E14", padding:"80px 60px" }}
-      >
+      <div className="flex flex-col justify-center bg-green-deep px-8 py-14 md:px-[60px] md:py-[80px]">
+
         <div
           className="inline-flex items-center gap-2 mb-4"
           style={{ fontFamily:"'Raleway',sans-serif", fontSize:11, fontWeight:700, letterSpacing:"0.25em", textTransform:"uppercase", color:"#C9A030" }}
@@ -30,7 +27,7 @@ export default function JoinCTA() {
 
         <h2
           className="font-serif text-white mb-4"
-          style={{ fontSize:"clamp(36px,4.5vw,60px)", lineHeight:0.95 }}
+          style={{ fontSize:"clamp(32px,4.5vw,60px)", lineHeight:0.95 }}
         >
           Ready to Join<br />
           the <em className="not-italic text-gold">Pack?</em>
@@ -54,14 +51,9 @@ export default function JoinCTA() {
         </a>
       </div>
 
-      {/* RIGHT — gold with diagonal cut and option list */}
+      {/* RIGHT — gold with diagonal cut (desktop only) and option list */}
       <div
-        className="relative flex flex-col justify-center overflow-hidden"
-        style={{
-          background: "#C9A030",
-          padding: "80px 60px",
-          clipPath: "polygon(60px 0,100% 0,100% 100%,0 100%)",
-        }}
+        className="relative flex flex-col justify-center overflow-hidden bg-gold px-8 py-12 md:px-[60px] md:py-[80px] md:[clip-path:polygon(60px_0,100%_0,100%_100%,0_100%)]"
       >
         {/* Diagonal stripe pattern */}
         <div
@@ -75,7 +67,7 @@ export default function JoinCTA() {
             <Link key={opt.href} href={opt.href} className="no-underline group">
               <div
                 className="flex items-center gap-4 transition-all duration-200 group-hover:gap-5"
-                style={{ padding:"15px 0", borderBottom: i < JOIN_OPTIONS.length - 1 ? "1px solid rgba(20,46,20,0.13)" : "none" }}
+                style={{ padding:"14px 0", borderBottom: i < JOIN_OPTIONS.length - 1 ? "1px solid rgba(20,46,20,0.13)" : "none" }}
               >
                 {/* Icon circle */}
                 <div
@@ -85,12 +77,12 @@ export default function JoinCTA() {
                   {opt.icon}
                 </div>
                 {/* Text */}
-                <div className="flex-1">
-                  <div className="font-serif" style={{ fontSize:20, color:"#142E14" }}>{opt.label}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-serif" style={{ fontSize:19, color:"#142E14" }}>{opt.label}</div>
                   <div style={{ fontFamily:"'Barlow',sans-serif", fontSize:12, color:"rgba(20,46,20,0.6)" }}>{opt.sub}</div>
                 </div>
                 {/* Arrow */}
-                <div style={{ color:"#142E14", fontSize:22, fontWeight:"bold" }}>›</div>
+                <div style={{ color:"#142E14", fontSize:22, fontWeight:"bold", flexShrink:0 }}>›</div>
               </div>
             </Link>
           ))}

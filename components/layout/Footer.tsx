@@ -4,18 +4,18 @@ import Image from "next/image";
 const REG_URL = "https://www.playhq.com/cricket-australia/org/wellington-point-cricket-club/df5cb0b2/register";
 
 const PROGRAM_LINKS = [
-  { label: "Cricket Blast",  href: "/programs/cricket-blast" },
-  { label: "RCI Trebles",    href: "/programs/rci-trebles" },
-  { label: "Junior Cricket", href: "/programs/junior-cricket" },
-  { label: "Senior Cricket", href: "/programs/senior-cricket" },
-  { label: "Warehouse Cricket", href: "/programs/warehouse-cricket" },
+  { label: "Cricket Blast",    href: "/programs/cricket-blast" },
+  { label: "RCI Trebles",      href: "/programs/rci-trebles" },
+  { label: "Junior Cricket",   href: "/programs/junior-cricket" },
+  { label: "Senior Cricket",   href: "/programs/senior-cricket" },
+  { label: "Winter Cricket",   href: "/programs/warehouse-cricket" },
 ];
 const CLUB_LINKS = [
-  { label: "About Us",       href: "/about" },
+  { label: "About Us",         href: "/about" },
   { label: "News & Resources", href: "/news" },
-  { label: "Photo Gallery",  href: "/gallery" },
-  { label: "Sponsors",       href: "/sponsors" },
-  { label: "Resources", href: "/news#resources" },
+  { label: "Photo Gallery",    href: "/gallery" },
+  { label: "Sponsors",         href: "/sponsors" },
+  { label: "Resources",        href: "/news#resources" },
 ];
 const CONTACT_LINKS = [
   { label: "Contact the Club", href: "/contact" },
@@ -47,17 +47,19 @@ export default function Footer() {
   return (
     <footer className="bg-charcoal pt-10 md:pt-14 pb-7 px-4 md:px-12">
       <div className="max-w-[1240px] mx-auto">
-        {/* Top grid */}
-        <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 mb-12 pb-12 border-b border-white/[0.08]">
-          {/* Brand */}
-          <div>
+
+        {/* Top grid — 1 col mobile, 2 col sm, 4 col md+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 mb-12 pb-12 border-b border-white/[0.08]">
+
+          {/* Brand — full width on mobile */}
+          <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/logo.svg"
                 alt="Wellington Point Wildcats"
                 width={60}
                 height={60}
-                className="w-[60px] h-[60px] object-contain"
+                className="w-[52px] h-[52px] md:w-[60px] md:h-[60px] object-contain flex-shrink-0"
               />
               <div>
                 <div className="font-condensed text-lg font-extrabold tracking-[0.08em] text-white uppercase leading-tight">
@@ -68,7 +70,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <p className="text-[13px] text-white/45 leading-7 mb-5">
+            <p className="text-[13px] text-white/45 leading-7 mb-5 max-w-sm">
               A proud community cricket club beside Moreton Bay, welcoming players of all ages
               for over 130 years. Home ground at 16 Ivy Street, Thorneside — affiliates of the
               Mooroondu Sports &amp; Recreation Club.
@@ -88,8 +90,10 @@ export default function Footer() {
               </a>
             </div>
           </div>
+
           <FooterCol title="Programs"  links={PROGRAM_LINKS} />
           <FooterCol title="Club"      links={CLUB_LINKS} />
+
           <div>
             <FooterCol title="Contact" links={CONTACT_LINKS} />
             <div className="mt-5 text-xs text-white/30 leading-7">
@@ -105,7 +109,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/25">
-          <div>
+          <div className="text-center md:text-left">
             © 2025 Wellington Point Cricket Club. All rights reserved. &nbsp;|&nbsp;
             <Link href="/privacy" className="text-white/40 no-underline hover:text-gold">Privacy Policy</Link>
           </div>
