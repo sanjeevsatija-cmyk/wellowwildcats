@@ -20,6 +20,7 @@ export default function ContactPage() {
           label="Get in Touch"
           title="Contact the Club"
           subtitle="We'd love to hear from you — whether you're looking to join, volunteer, sponsor, or just find out more."
+          image="/Contact.jpg"
         />
 
         <SectionWrapper className="bg-cream">
