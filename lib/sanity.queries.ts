@@ -59,8 +59,10 @@ export const HOME_GALLERY_QUERY = groq`
 `;
 
 // ── Homepage: news ticker items ───────────────────────────────────
+// Using active != false so items with active=null or active=true both show.
+// Only items explicitly set to false (hidden) are excluded.
 export const TICKER_QUERY = groq`
-  *[_type == "tickerItem" && active == true] | order(order asc) {
+  *[_type == "tickerItem" && active != false] | order(order asc) {
     _id, text, emoji
   }
 `;
