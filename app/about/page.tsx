@@ -52,8 +52,12 @@ export default function AboutPage() {
       <Topbar />
       <Nav />
       <main>
-        <PageHero label="Who We Are" title="About Wellington Point Cricket Club"
-          subtitle="130 years of cricket in the heart of Redlands — Est. 1895." />
+        <PageHero
+          label="Who We Are"
+          title="About Wellington Point Cricket Club"
+          subtitle="130 years of cricket in the heart of Redlands — Est. 1895."
+          image="/About.jpg"
+        />
 
         {/* Club History */}
         <SectionWrapper className="bg-white">
