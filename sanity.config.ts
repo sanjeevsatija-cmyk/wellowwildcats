@@ -22,12 +22,7 @@ const structure = (S: any) =>
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       S.divider(),
       S.documentTypeListItem("newsPost").title("📰  News & Reports"),
-      S.documentTypeListItem("result").title("🏏  Match Results"),
-      S.divider(),
-      S.documentTypeListItem("program").title("🏆  Programs"),
-      S.documentTypeListItem("sponsor").title("🤝  Sponsors"),
       S.documentTypeListItem("galleryAlbum").title("📸  Photo Gallery"),
-      S.documentTypeListItem("committeeMember").title("👤  Committee"),
       S.divider(),
       S.documentTypeListItem("tickerItem").title("📢  News Ticker"),
     ]);
