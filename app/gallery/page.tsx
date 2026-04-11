@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Topbar from "@/components/layout/Topbar";
 import Nav from "@/components/layout/Nav";
@@ -33,34 +33,27 @@ interface FlatPhoto {
 }
 
 export default function GalleryPage() {
-  const [active, setActive]   = useState("All");
+  const [active, setActive]     = useState("All");
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [photos, setPhotos]   = useState<FlatPhoto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [photos, setPhotos]     = useState<FlatPhoto[]>([]);
+  const [loading, setLoading]   = useState(true);
+
+  // Touch swipe tracking
+  const touchStartX = useRef<number | null>(null);
+  const SWIPE_THRESHOLD = 50; // px
 
   useEffect(() => {
     client.fetch<GalleryAlbum[]>(GALLERY_QUERY)
       .then((albums) => {
-        // Flatten all album images into a single list with category tag
         const flat: FlatPhoto[] = [];
         albums.forEach((album) => {
           const cat = album.category || "Match Day";
-          // Include cover image first if present
           if (album.coverImage?.asset) {
-            flat.push({
-              src: urlForImage(album.coverImage).width(800).url(),
-              alt: album.title,
-              cat,
-            });
+            flat.push({ src: urlForImage(album.coverImage).width(800).url(), alt: album.title, cat });
           }
-          // Then all images in the album
           (album.images || []).forEach((img) => {
             if (img.asset) {
-              flat.push({
-                src: urlForImage(img).width(800).url(),
-                alt: img.alt || album.title,
-                cat,
-              });
+              flat.push({ src: urlForImage(img).width(800).url(), alt: img.alt || album.title, cat });
             }
           });
         });
@@ -74,6 +67,19 @@ export default function GalleryPage() {
 
   const prev = () => setLightbox((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
   const next = () => setLightbox((i) => (i !== null ? (i + 1) % filtered.length : null));
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      diff > 0 ? next() : prev();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <>
@@ -198,6 +204,8 @@ export default function GalleryPage() {
           className="fixed inset-0 z-50 flex items-center justify-center"
           style={{ background: "rgba(0,0,0,0.92)" }}
           onClick={() => setLightbox(null)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <button
             className="absolute top-4 right-5 text-white/70 hover:text-white font-condensed text-[13px] font-bold tracking-[0.1em] uppercase z-10"
@@ -205,12 +213,15 @@ export default function GalleryPage() {
           >
             Close ✕
           </button>
+
+          {/* Prev arrow — hidden on mobile (use swipe) */}
           <button
-            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors z-10"
+            className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center text-lg transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); prev(); }}
           >
             ‹
           </button>
+
           <div
             className="relative max-w-[90vw] max-h-[85vh] rounded-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
@@ -230,12 +241,24 @@ export default function GalleryPage() {
               <p className="text-white text-[13px] mt-0.5">{filtered[lightbox].alt}</p>
             </div>
           </div>
+
+          {/* Next arrow — hidden on mobile (use swipe) */}
           <button
-            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors z-10"
+            className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center text-lg transition-colors z-10"
             onClick={(e) => { e.stopPropagation(); next(); }}
           >
             ›
           </button>
+
+          {/* Mobile swipe hint — fades out after first interaction */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:hidden pointer-events-none">
+            <div className="flex items-center gap-2 text-white/40 font-condensed text-[10px] tracking-[0.12em] uppercase">
+              <span>‹</span>
+              <span>Swipe to navigate</span>
+              <span>›</span>
+            </div>
+          </div>
+
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-condensed text-[11px] text-white/50 tracking-[0.1em]">
             {lightbox + 1} / {filtered.length}
           </div>
