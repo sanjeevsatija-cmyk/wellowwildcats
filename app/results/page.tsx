@@ -97,19 +97,6 @@ export default function ResultsPage() {
         <section className="py-10 md:py-14 px-4 md:px-12 bg-cream">
           <div className="max-w-[1100px] mx-auto">
 
-            {/* Section header */}
-            <div className="mb-6">
-              <p className="font-condensed text-[10px] font-bold tracking-[0.16em] uppercase text-gold mb-2">
-                Live on PlayHQ
-              </p>
-              <h2 className="font-serif text-[clamp(22px,3vw,36px)] font-black text-green-deep leading-tight">
-                Find Your Team
-              </h2>
-              <p className="font-body text-[13px] text-wello-grey mt-2 max-w-xl leading-relaxed">
-                Our scorers update draws, results and ladders live on game day. Click any competition below to follow your team on PlayHQ.
-              </p>
-            </div>
-
             {/* Active / Upcoming Winter competitions */}
             <div className="flex items-center gap-3 mb-4">
               <span className="inline-flex items-center gap-1.5 font-condensed text-[10px] font-bold tracking-[0.2em] uppercase text-emerald-600">
@@ -123,10 +110,10 @@ export default function ResultsPage() {
             <div className="flex items-start gap-3 bg-green-deep/5 border border-green-deep/15 rounded-xl px-4 py-3.5 mb-5">
               <span className="text-[18px] leading-none mt-0.5">🏏</span>
               <div>
-                <p className="font-condensed text-[10px] font-bold tracking-[0.14em] uppercase text-green-deep mb-0.5">
+                <p className="font-condensed text-[16px] font-bold tracking-[0.14em] uppercase text-green-deep mb-0.5">
                   Live Scorecards — Coming Soon
                 </p>
-                <p className="text-[12px] text-wello-grey leading-relaxed">
+                <p className="text-[14px] text-wello-grey leading-relaxed">
                   Full match scorecards, ladders and fixtures will be available here once our PlayHQ API access is confirmed. In the meantime, click any competition card to follow your team directly on PlayHQ.
                 </p>
               </div>
