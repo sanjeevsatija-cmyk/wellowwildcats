@@ -3,9 +3,9 @@ export default function Topbar() {
     <div className="bg-green-deep overflow-hidden">
       {/* Mobile */}
       <div className="flex md:hidden items-center justify-between px-4 py-2 text-[11px] text-white/70 font-sans font-medium">
-        <span className="flex items-center gap-1.5 truncate">
-          📍 &nbsp;16 Ivy St, Thorneside &nbsp;|&nbsp; Est. 1895
-        </span>
+        <a href="https://maps.google.com/?q=16+Ivy+Street+Thorneside+QLD+4158" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 truncate text-white/70 no-underline hover:text-gold transition-colors">
+  📍 &nbsp;16 Ivy St, Thorneside &nbsp;|&nbsp; Est. 1895
+        </a>
         <span className="flex items-center gap-1.5 flex-shrink-0 ml-3">
           <span className="live-dot" />
           <span className="text-white/70">2025/26 Season Live</span>
@@ -14,9 +14,9 @@ export default function Topbar() {
 
       {/* Desktop */}
       <div className="hidden md:flex items-center justify-between px-10 py-2 text-xs text-white/70 font-sans font-medium tracking-wide">
-        <span className="flex items-center gap-1.5">
-          📍 &nbsp; 16 Ivy Street, Thorneside QLD 4158
-        </span>
+        <a href="https://maps.google.com/?q=16+Ivy+Street+Thorneside+QLD+4158" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-white/70 no-underline hover:text-gold transition-colors">
+  📍 &nbsp; 16 Ivy Street, Thorneside QLD 4158
+        </a>
         <div className="flex gap-5 items-center">
           <span className="flex items-center gap-3">
             {/* Facebook */}
